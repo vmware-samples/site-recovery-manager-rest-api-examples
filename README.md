@@ -1,22 +1,78 @@
 # site-recovery-manager-rest-api-examples
 
-## Overview
+## 1. Prerequisites
+REST API gateway Open API spec file in one of the formats - .json or .yaml
 
-## Try it out
+REST API client generator.
 
-### Prerequisites
+Online option - https://editor.swagger.io/
 
-* Prereq 1
-* Prereq 2
-* Prereq 3
+Maven option:
 
-### Build & Run
+**swagger-codegen-maven-plugin**
+```
+<plugin>
+   <groupId>io.swagger.codegen.v3</groupId>
+   <artifactId>swagger-codegen-maven-plugin</artifactId>
+   <version>3.0.32</version>
+   <dependencies>
+      <dependency>
+         <groupId>com.github.jknack</groupId>
+         <artifactId>handlebars</artifactId>
+         <version>4.3.0</version>
+      </dependency>
+   </dependencies>
+   <executions>
+      <execution>
+         <phase>generate-sources</phase>
+         <goals>
+            <goal>generate</goal>
+         </goals>
+         <configuration>
+            <inputSpec>${swagger.definitions.url}</inputSpec>
+            <language>java</language>
+            <output>${swagger.output.dir}</output>
+            <generateSupportingFiles>true</generateSupportingFiles>
+            <generateApiTests>false</generateApiTests>
+            <generateApiDocumentation>false</generateApiDocumentation>
+            <generateModelTests>false</generateModelTests>
+            <generateModelDocumentation>false</generateModelDocumentation>
+            <environmentVariables>
+               <io.swagger.v3.parser.util.RemoteUrl.trustAll>true</io.swagger.v3.parser.util.RemoteUrl.trustAll>
+            </environmentVariables>
+            <configOptions>
+               <dateLibrary>legacy</dateLibrary>
+               <useRuntimeException>true</useRuntimeException>
+               <hideGenerationTimestamp>true</hideGenerationTimestamp>
+            </configOptions>
+         </configuration>
+      </execution>
+   </executions>
+</plugin>
+```
+Other options are also available.
 
-1. Step 1
-2. Step 2
-3. Step 3
+Project build tools - Maven, Gradle, etc.
 
-## Documentation
+## 2. Project Setup Steps
+Generate REST API gateway client.
+
+Build REST API gateway generated client.
+
+Create your project and introduce dependency on REST API gateway client built in the previous step.
+
+Write your code to start calling REST API gateway endpoints.
+
+First start with login request in order to obtain REST API gateway session token. This needs Basic Authentication with user and password credentials for the local SRM/HMS site. Add the obtained session token to the header, with key "x-dr-session", of every future REST API request.
+
+Call get all pairings request. This is a preliminary step before calling remote login request.
+
+Call remote login request in order to authenticate to the SRM/HMS remote site. This needs Basic Authentication with user and password credentials for the remote SRM/HMS site.
+
+Now logged in at the local and remote site, any request of your interest can be made.
+
+
+With project build tool of your choice build your project.
 
 ## Contributing
 
