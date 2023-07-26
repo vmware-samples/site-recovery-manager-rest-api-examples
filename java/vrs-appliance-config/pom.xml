@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.vmware.dr.restapi.examples</groupId>
+   <artifactId>vrs-appliance-config</artifactId>
+   <version>1.0</version>
+   <packaging>pom</packaging>
+
+   <licenses>
+      <license>
+         <name>BSD-2</name>
+         <url>https://docs.oracle.com/en/cloud/saas/enterprise-performance-management-common/ethrd/copy_permission_notice_bsd2_clause.html</url>
+         <distribution>repo</distribution>
+      </license>
+   </licenses>
+   
+   <properties>
+      <java.version>11</java.version>
+      <maven.compiler.source>${java.version}</maven.compiler.source>
+      <maven.compiler.target>${java.version}</maven.compiler.target>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+   
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>io.swagger.codegen.v3</groupId>
+            <artifactId>swagger-codegen-maven-plugin</artifactId>
+            <version>3.0.46</version>
+         </dependency>
+         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+         </dependency>
+         <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.15</version>
+         </dependency>
+         <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.7.5</version>
+         </dependency>
+         <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>logging-interceptor</artifactId>
+            <version>2.7.5</version>
+         </dependency>
+         <dependency>
+            <groupId>io.gsonfire</groupId>
+            <artifactId>gson-fire</artifactId>
+            <version>1.8.5</version>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+   
+   <dependencies>
+      <dependency>
+         <groupId>io.swagger.codegen.v3</groupId>
+         <artifactId>swagger-codegen-maven-plugin</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.google.code.gson</groupId>
+         <artifactId>gson</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>io.swagger.core.v3</groupId>
+         <artifactId>swagger-annotations</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.squareup.okhttp</groupId>
+         <artifactId>okhttp</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.squareup.okhttp</groupId>
+         <artifactId>logging-interceptor</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>io.gsonfire</groupId>
+         <artifactId>gson-fire</artifactId>
+      </dependency>
+   </dependencies>
+
+   <modules>
+      <module>api-client</module>
+      <module>code-examples</module>
+   </modules>
+</project>

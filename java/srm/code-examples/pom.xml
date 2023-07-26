@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>com.vmware.dr.restapi.examples</groupId>
+      <artifactId>srm</artifactId>
+      <version>1.0</version>
+   </parent>
+   <artifactId>code-examples</artifactId>
+   <packaging>jar</packaging>
+
+   <licenses>
+      <license>
+         <name>BSD-2</name>
+         <url>https://docs.oracle.com/en/cloud/saas/enterprise-performance-management-common/ethrd/copy_permission_notice_bsd2_clause.html</url>
+         <distribution>repo</distribution>
+      </license>
+   </licenses>
+
+   <dependencies>
+      <dependency>
+         <groupId>com.vmware.dr.restapi.examples</groupId>
+         <artifactId>api-client</artifactId>
+         <version>1.0</version>
+         <scope>compile</scope>
+      </dependency>
+   </dependencies>
+</project>
