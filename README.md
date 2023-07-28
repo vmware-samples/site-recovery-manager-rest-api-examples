@@ -79,7 +79,7 @@ With project build tool of your choice build your project.
 The site-recovery-manager-rest-api-examples project team welcomes contributions from the community. Before you start working with site-recovery-manager-rest-api-examples, please
 read our [Developer Certificate of Origin](https://cla.vmware.com/dco). All contributions to this repository must be
 signed as described on that page. Your signature certifies that you wrote the patch or have the right to pass it on
-as an open-source patch. For more detailed information, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+as an open-source patch. For more detailed information, refer to [CONTRIBUTING_DCO.md](CONTRIBUTING_DCO.md).
 
 ## License
 
