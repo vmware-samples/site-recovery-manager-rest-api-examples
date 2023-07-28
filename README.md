@@ -1,5 +1,7 @@
 # site-recovery-manager-rest-api-examples
 
+Examples (code snippets) of working REST API requests. 
+
 ## 1. Prerequisites
 REST API gateway Open API spec file in one of the formats - .json or .yaml
 
@@ -83,3 +85,4 @@ as an open-source patch. For more detailed information, refer to [CONTRIBUTING_D
 
 ## License
 
+BSD-2
