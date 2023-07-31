@@ -1,0 +1,5237 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "VMware vSphere Replication Management Server Configuration REST API",
+    "description" : "Configuration REST API provides API access to DR appliance configuration functionality\n\n<hr class=\"getting-started-content-separator\"/>\n\n<h1>Getting started with REST API</h1>\n\n### Step 1 - Authenticate to the API Endpoint\nCreate a session ID using the following API:\n<p></p>\n<span class=\"label operation-verb-label post label-info\">\n    POST\n</span>\n<a class=\"link\" href=\"./session/post/\">Login</a>\n\nYou have been authenticated and have retrieved your API session ID.\n\n### Step 2 - Use the session ID in subsequent calls\nOn subsequent API calls, include the session ID returned in step 1 using an HTTP header, as follows:\n\n```http\nx-dr-session: MDYzYmJlZTEtMDhhMC00M2Q3LWE0YWUtNjI2Y2I3ZThjZjVi\n```\n\n### Step 3 - Get Appliance Info\n\nGet information about the virtual appliance by using this API:\n<p></p>\n<span class=\"label operation-verb-label post label-info\">\n    GET\n</span>\n<a class=\"link\" href=\"./appliance/get/\">Get Appliance Info</a>",
+    "contact" : {
+      "name" : "CSDP - DR UI",
+      "url" : "https://docs.vmware.com/en/Site-Recovery-Manager/8.6/rn/vmware-site-recovery-manager-86-release-notes/index.html"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "2.0.0"
+  },
+  "tags" : [ {
+    "name" : "appliance",
+    "description" : "APIs related to the base vSphere Replication appliance settings management"
+  }, {
+    "name" : "authentication",
+    "description" : "APIs related to the authentication mechanism"
+  }, {
+    "name" : "certificates",
+    "description" : "APIs related to the vSphere Replication appliance certificates management"
+  }, {
+    "name" : "configuration",
+    "description" : "APIs related to the configuration of vSphere Replication Management Server service functionality"
+  }, {
+    "name" : "network",
+    "description" : "APIs related to the vSphere Replication appliance network management"
+  }, {
+    "name" : "services",
+    "description" : "APIs related to the services management"
+  }, {
+    "name" : "support-bundles",
+    "description" : "APIs related to support bundle management"
+  }, {
+    "name" : "tasks",
+    "description" : "APIs related to the tasks management"
+  }, {
+    "name" : "updates",
+    "description" : "APIs related to the vSphere Replication appliance updates management"
+  } ],
+  "paths" : {
+    "/appliance" : {
+      "get" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Get information about the virtual appliance.",
+        "description" : "Get information about the virtual appliance.",
+        "operationId" : "getApplianceInfo",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Information about the virtual appliance.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApplianceInfoDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/actions/restart" : {
+      "post" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Restart the virtual appliance.",
+        "description" : "Restart the virtual appliance.",
+        "operationId" : "restartAppliance",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "The appliance is restarting."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/actions/stop" : {
+      "post" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Shut down the virtual appliance.",
+        "description" : "Shut down the virtual appliance.",
+        "operationId" : "shutdownAppliance",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "The appliance is shutting down."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/certificates/actions/generate-csr" : {
+      "post" : {
+        "tags" : [ "certificates" ],
+        "summary" : "Generate a new key and certificate signing request (CSR) and return it for signing.",
+        "description" : "Generate a new key and certificate signing request (CSR) and return it for signing.",
+        "operationId" : "generateCsr",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "Certificate signing request settings.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CertificateSigningRequestInputData"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Generated certificate signing request (CSR).",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CertificateSigningRequestDataDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/certificates/ca" : {
+      "get" : {
+        "tags" : [ "certificates" ],
+        "summary" : "Get the installed certificate authorities (CA) certificates used to validate other server's certificates.",
+        "description" : "Get the installed certificate authorities (CA) certificates used to validate other server's certificates.",
+        "operationId" : "getApplianceCaCertificates",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The CA certificate infos.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CaX509CertificateDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "certificates" ],
+        "summary" : "Add certificate authorities (CA) certificates.",
+        "description" : "Add certificate authorities (CA) certificates.",
+        "operationId" : "addCaCertificates",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "CA certificates to be added.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/CaCertificateInfo"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "CA certificates got added."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/certificates/ca/actions/remove" : {
+      "post" : {
+        "tags" : [ "certificates" ],
+        "summary" : "Delete certificate authorities (CA) certificates.",
+        "description" : "Delete certificate authorities (CA) certificates.",
+        "operationId" : "deleteCaCertificates",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "CA certificates to be removed.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/CaCertificateInfo"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "CA certificates are removed."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/certificates/server" : {
+      "get" : {
+        "tags" : [ "certificates" ],
+        "summary" : "Get the appliance certificate info.",
+        "description" : "Get the appliance certificate info.",
+        "operationId" : "getApplianceCertificate",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The appliance certificate info.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApplianceX509CertificateDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "certificates" ],
+        "summary" : "Update the appliance certificate.",
+        "description" : "Update the appliance certificate.",
+        "operationId" : "updateApplianceCertificate",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The appliance certificate to be updated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstallCertificateSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Appliance certificate is updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/certificates/server/actions/probe-ssl-connection" : {
+      "post" : {
+        "tags" : [ "certificates" ],
+        "summary" : "Check if the appliance can establish a successful SSL connection with the specified endpoint.",
+        "description" : "Check if the appliance can establish a successful SSL connection with the specified endpoint.",
+        "operationId" : "probeSsl",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "URI of the endpoint to be probed.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProbeSslSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Structure that describes if this appliance can validate the certificate coming from the specified endpoint.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApplianceX509CertificateDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/configuration-manager/actions/check-extension-key-registration" : {
+      "post" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Check whether the given extension key is already registered in SSO, lookup service, and as VC extension.",
+        "description" : "Check whether the given extension key is already registered in SSO, lookup service, and as VC extension.",
+        "operationId" : "checkExtensionKey",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "requestBody" : {
+          "description" : "Check whether the extension key is already registered in SSO, lookup service, and as VC extension.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CheckExtensionKeyRegistrationSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Hostname of the registered server, if any.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StringDrData"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/configuration-manager/actions/list-vc-services" : {
+      "post" : {
+        "tags" : [ "configuration" ],
+        "summary" : "List all vCenter Servers in the VMware Platform Services Controller (PSC).",
+        "description" : "List all vCenter Servers in the VMware Platform Services Controller (PSC).",
+        "operationId" : "listVcServices",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "requestBody" : {
+          "description" : "The specification to list the vCenter Server services.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ListVcServicesSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "A list of the registered vCenter Server services.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VcInfoDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/configuration-manager/actions/validate-connection" : {
+      "post" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Validates connections to the vSphere infrastructure.",
+        "description" : "If there is no explicit and valid vcInstanceId in the connection spec, no vCenter Server validation will be done. Only the infra node will be validated.",
+        "operationId" : "validateConnection",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The connection specification to be validated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/VcConnectionSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "The connection is validated successfully."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/configuration-manager/configuration" : {
+      "get" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Get the appliance configuration info.",
+        "description" : "Error Not Found is returned if the appliance is not configured.",
+        "operationId" : "getConfiguration",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The appliance configuration info.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConfigurationInfoDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Update the appliance configuration.",
+        "description" : "Update the appliance configuration.",
+        "operationId" : "updateConfiguration",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The appliance configuration to be updated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ConfigurationInfo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Configure the appliance task.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/configuration-manager/configuration/actions/remove" : {
+      "post" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Remove current configuration.",
+        "description" : "Remove current configuration.",
+        "operationId" : "deleteConfiguration",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "A spec for cleaning the current configuration.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Credentials"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Unconfigure the appliance task.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/configuration-manager/reconfigure-required" : {
+      "get" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Check if the reconfigure operation is required after the upgrade.",
+        "description" : "Check if the reconfigure operation is required after the upgrade.",
+        "operationId" : "getReconfigureRequired",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Appliance reconfiguration is required.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ReconfigureRequiredDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/configuration-manager/replication-server-settings" : {
+      "get" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Get vSphere Replication Server settings.",
+        "description" : "Get vSphere Replication Server settings.",
+        "operationId" : "getReplicationServerSettings",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Current settings for vSphere Replication Server.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ReplicationServerSettingsDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Update the vSphere Replication Server settings.",
+        "description" : "Update the vSphere Replication Server settings.",
+        "operationId" : "updateReplicationServerSettings",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The vSphere Replication Server settings to be updated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ReplicationServerSettings"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "vSphere Replication Server settings successfully updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/disks" : {
+      "get" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Get information about the virtual appliance's disks.",
+        "description" : "Get information about the virtual appliance's disks.",
+        "operationId" : "getApplianceDisks",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Information about the virtual appliance's disks.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApplianceDiskDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/access/password" : {
+      "post" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Update the appliance password.",
+        "description" : "Update the appliance password.",
+        "operationId" : "updateAppliancePassword",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The appliance password to be updated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdatePasswordSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Appliance password was updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/network" : {
+      "get" : {
+        "tags" : [ "network" ],
+        "summary" : "Current appliance network settings.",
+        "description" : "Current appliance network settings.",
+        "operationId" : "getAllNetworkSettings",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The current network settings.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NetworkInfoDataDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/network/dns" : {
+      "get" : {
+        "tags" : [ "network" ],
+        "summary" : "Get the DNS settings.",
+        "description" : "Get the DNS settings.",
+        "operationId" : "getNetworkDnsSettings",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "DNS settings.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DnsInfoDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "network" ],
+        "summary" : "Update the DNS settings.",
+        "description" : "Update the DNS settings.",
+        "operationId" : "updateNetworkDnsSettings",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The DNS settings to be updated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DnsInfo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "The DNS settings are updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/network/interfaces" : {
+      "get" : {
+        "tags" : [ "network" ],
+        "summary" : "Get all network interface settings.",
+        "description" : "Get all network interface settings.",
+        "operationId" : "getAllNetworkInterfacesSettings",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All network interfaces settings.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NetworkInterfaceInfoDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/network/interfaces/{interface_name}" : {
+      "get" : {
+        "tags" : [ "network" ],
+        "summary" : "Get network interface settings.",
+        "description" : "Get network interface settings.",
+        "operationId" : "getNetworkInterfaceSettings",
+        "parameters" : [ {
+          "name" : "interface_name",
+          "in" : "path",
+          "description" : "The name of the network interface.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The network interface settings.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NetworkInterfaceInfoDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "network" ],
+        "summary" : "Update network interface settings. Changing the appliance IP address disconnects the current REST API connection.",
+        "description" : "Update network interface settings. Changing the appliance IP address disconnects the current REST API connection.",
+        "operationId" : "updateNetworkInterfaceSettings",
+        "parameters" : [ {
+          "name" : "interface_name",
+          "in" : "path",
+          "description" : "The name of the network interface.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "The network interface settings to be updated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateNetworkInterfaceInfoSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Network interface settings updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/syslog-servers" : {
+      "get" : {
+        "tags" : [ "appliance" ],
+        "summary" : "A list of all configured syslog servers.",
+        "description" : "A list of all configured syslog servers.",
+        "operationId" : "getSyslogServers",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All configured syslog servers.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SyslogServerInfoDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Update configured syslog servers.",
+        "description" : "Update configured syslog servers.",
+        "operationId" : "updateSyslogServers",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "Update the list of syslog servers with the given one.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/SyslogServerInfo"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "The syslog servers are updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/syslog-servers/actions/send-test-message" : {
+      "post" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Send test message to all syslog servers.",
+        "description" : "Send test message to all syslog servers.",
+        "operationId" : "sendSyslogTestMessage",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The test message to be sent to all syslog servers.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TestMessage"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Syslog servers are updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/time" : {
+      "get" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Information about the current time settings.",
+        "description" : "Information about the current time settings.",
+        "operationId" : "getTimeSettings",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The current time settings.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TimeSettingsDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Update the current time settings.",
+        "description" : "Update the current time settings.",
+        "operationId" : "updateTimeSettings",
+        "parameters" : [ ],
+        "requestBody" : {
+          "description" : "The time settings to be updated.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateTimeSettingsSpec"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "The time settings are updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/settings/time/zones" : {
+      "get" : {
+        "tags" : [ "appliance" ],
+        "summary" : "Information about supported time zones.",
+        "description" : "Information about supported time zones.",
+        "operationId" : "getTimeZones",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The supported time zones.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TimeZoneDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/update-manager/actions/retrieve-updates" : {
+      "post" : {
+        "tags" : [ "updates" ],
+        "summary" : "Get all available updates in the repository.",
+        "description" : "Get all available updates in the repository.",
+        "operationId" : "getUpdates",
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "A task to track the progress of the operation. List of the available updates will be returned in the result field of the task, once completed.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/update-manager/repository" : {
+      "get" : {
+        "tags" : [ "updates" ],
+        "summary" : "Get information about the current Updates Repository.",
+        "description" : "Get information about the current Updates Repository.",
+        "operationId" : "getUpdatesRepository",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Information about the current Updates Repository.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UpdatesRepositoryDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "updates" ],
+        "summary" : "Change the current Updates Repository.",
+        "description" : "Change the current Updates Repository.",
+        "operationId" : "changeUpdatesRepository",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdatesRepository"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "The Updates Repository is updated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/appliance/update-manager/updates/{update_version}/actions/install" : {
+      "post" : {
+        "tags" : [ "updates" ],
+        "summary" : "Install the update.",
+        "description" : "Install the update.",
+        "operationId" : "installUpdate",
+        "parameters" : [ {
+          "name" : "update_version",
+          "in" : "path",
+          "description" : "The version of an update to be installed.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "A task to monitor the update. Since an update might restart any service and/or the appliance, it's possible to not be able to monitor the progress of the resulted task.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/services" : {
+      "get" : {
+        "tags" : [ "services" ],
+        "summary" : "Get information about all services.",
+        "description" : "Get information about all services.",
+        "operationId" : "getAllServices",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of all services this virtual appliance has configured.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceInfoDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/services/{service_id}" : {
+      "get" : {
+        "tags" : [ "services" ],
+        "summary" : "Get information about a specific service.",
+        "description" : "Get information about a specific service.",
+        "operationId" : "getService",
+        "parameters" : [ {
+          "name" : "service_id",
+          "in" : "path",
+          "description" : "The ID of a service.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Information about a service.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceInfoDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/services/{service_id}/actions/restart" : {
+      "post" : {
+        "tags" : [ "services" ],
+        "summary" : "Restart the service.",
+        "description" : "Restart the service.",
+        "operationId" : "restartService",
+        "parameters" : [ {
+          "name" : "service_id",
+          "in" : "path",
+          "description" : "The ID of a service.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "The service has successfully restarted."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/services/{service_id}/actions/start" : {
+      "post" : {
+        "tags" : [ "services" ],
+        "summary" : "Start the service.",
+        "description" : "Start the service.",
+        "operationId" : "startService",
+        "parameters" : [ {
+          "name" : "service_id",
+          "in" : "path",
+          "description" : "The ID of a service.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Service has successfully started."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/services/{service_id}/actions/stop" : {
+      "post" : {
+        "tags" : [ "services" ],
+        "summary" : "Stop the service.",
+        "description" : "Stop the service.",
+        "operationId" : "stopService",
+        "parameters" : [ {
+          "name" : "service_id",
+          "in" : "path",
+          "description" : "The ID of a service.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "The service has successfully stopped."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/session" : {
+      "get" : {
+        "tags" : [ "authentication" ],
+        "summary" : "Returns information about the current session, if any.",
+        "description" : "Returns information about the current session, if any.",
+        "operationId" : "getCurrentSession",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns information about the currently authenticated session.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SessionInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "authentication" ],
+        "summary" : "Logs in and returns the session ID. Include 'x-dr-session' header with the value of the returned session ID in subsequent requests.",
+        "description" : "Logs in and returns the session ID. Include 'x-dr-session' header with the value of the returned session ID in subsequent requests.",
+        "operationId" : "login",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully authenticated. The session ID is returned in the response body. Include 'x-dr-session' header with value of the returned session ID in subsequent requests.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SessionIdData"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BasicAuth" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "authentication" ],
+        "summary" : "Logs out if the session is authenticated.",
+        "description" : "Logs out if the session is authenticated.",
+        "operationId" : "logout",
+        "parameters" : [ ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully logged out. The session is no longer authenticated."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/support-bundles" : {
+      "get" : {
+        "tags" : [ "support-bundles" ],
+        "summary" : "Get all support bundles available on the server.",
+        "description" : "Get all support bundles available on the server.<p>Retrieves the log bundles list.<p>The list will have the key identifiers of the log bundles created in the current config session and still available on the appliance.",
+        "operationId" : "getSupportBundleInfos",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "List of support bundles available on the server.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SupportBundleInfoDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "support-bundles" ],
+        "summary" : "Generate support bundle.",
+        "description" : "Generate support bundle.<p>Instructs the server to generate a system log bundle.<p>A log bundle includes log files and other configuration information that can be used to investigate failures.",
+        "operationId" : "generateSupportBundle",
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "Task is created. The generated log bundle id will be populated in the result section of the task once it's completed.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/support-bundles/{support_bundle_key}" : {
+      "get" : {
+        "tags" : [ "support-bundles" ],
+        "summary" : "Download support bundle info from the server.",
+        "description" : "Download support bundle info from the server.<p>Downloads the log bundle which matches the key identifier from the log bundle list and is still available on the appliance.",
+        "operationId" : "downloadSupportBundleInfo",
+        "parameters" : [ {
+          "name" : "support_bundle_key",
+          "in" : "path",
+          "description" : "The key identifier of a support bundle.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully downloaded support bundle info from the server."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/x-tar" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/x-tar" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/x-tar" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "support-bundles" ],
+        "summary" : "Delete the existing support bundle on the server.",
+        "description" : "Delete the existing support bundle on the server.<p>Instructs the server that this log bundle is no longer needed by the client that generated it.<p>The server can then safely delete the file.",
+        "operationId" : "deleteSupportBundle",
+        "parameters" : [ {
+          "name" : "support_bundle_key",
+          "in" : "path",
+          "description" : "The key identifier of a support bundle.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully deleted support bundle."
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/tasks" : {
+      "get" : {
+        "tags" : [ "tasks" ],
+        "summary" : "Retrieve all configuration-related tasks.",
+        "description" : "Retrieve all configuration-related tasks.",
+        "operationId" : "getAllTasksInfo",
+        "parameters" : [ {
+          "name" : "filter_property",
+          "in" : "query",
+          "description" : "The name of the field by which to filter the result data. Must be used in combination with filter parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "The filter value by which to filter the result data. Must be used in combination with filter_prop parameter. Supports for nested fields. Example: https://dr-server/api/vms?filter_property=name&filter=vm-1&filter=vm-2",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort_by",
+          "in" : "query",
+          "description" : "Define desired sort by field of the result data. If order_by is not specified, ascending is used as default.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "name"
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "Define desired sort order by field of the result data. Must be used in combination with sort_by. Supported values: asc, ascending, desc, descending.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Specify the limit size of the result data. In combination with offset parameter provides paging functionality. If none - configuration property 'defaultResponsePageSize' in REST API configuration file is taken into account. If configuration property is not defined - default value of 100 is taken into account.",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The amount of elements to skip in the response. In combination with limit parameter provides paging functionality. Must be used in combination with limit parameter. If none - default value of 0 is taken into account. Example: https://dr-server/api/vms?limit=10&offset=10",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "10"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of configuration tasks.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskDrResponseList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    },
+    "/tasks/{task_id}" : {
+      "get" : {
+        "tags" : [ "tasks" ],
+        "summary" : "Retrieve the task information.",
+        "description" : "Retrieve the task information.",
+        "operationId" : "getTaskInfo",
+        "parameters" : [ {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "The ID of a task.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Information about the task.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskDrResponseEntity"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request - the server cannot understand the request due to invalid syntax or invalid request body content",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized - the client must authenticate itself to get the requested response"
+          },
+          "403" : {
+            "description" : "Forbidden - not sufficient access rights to fulfill the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found - server cannot find the requested in URL resource"
+          },
+          "500" : {
+            "description" : "Internal server error - unexpected condition prevents fulfilling the request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "SessionHeader" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ApplianceDisk" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "Name of the appliance disk."
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Description of the appliance disk.",
+            "nullable" : true
+          },
+          "partition_name" : {
+            "type" : "string",
+            "description" : "Partition name of the appliance disk."
+          },
+          "total_space" : {
+            "type" : "integer",
+            "description" : "Total space on the appliance disk.",
+            "format" : "int64"
+          },
+          "used_space" : {
+            "type" : "integer",
+            "description" : "Used space on the appliance disk.",
+            "format" : "int64"
+          },
+          "used_space_percent" : {
+            "type" : "string",
+            "description" : "Percent for ratio used size per total size.",
+            "example" : "36%"
+          }
+        },
+        "description" : "Detailed information about an appliance disk."
+      },
+      "ApplianceDiskDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Detailed information about an appliance disk.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ApplianceDisk"
+        } ]
+      },
+      "ApplianceDiskDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ApplianceDisk"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Detailed information about an appliance disk."
+      },
+      "ApplianceInfo" : {
+        "type" : "object",
+        "properties" : {
+          "hostname" : {
+            "type" : "string",
+            "description" : "The hostname of the appliance."
+          },
+          "product_build_number" : {
+            "type" : "string",
+            "description" : "The product build number of the appliance.",
+            "example" : "12345"
+          },
+          "product_name" : {
+            "type" : "string",
+            "description" : "The product name of the appliance.",
+            "example" : "vSphere Replication"
+          },
+          "appliance_version" : {
+            "type" : "string",
+            "description" : "The version of the appliance.",
+            "example" : "9.0.0-10010"
+          },
+          "appliance_build_number" : {
+            "type" : "string",
+            "description" : "The build number of the appliance.",
+            "example" : "10010"
+          },
+          "system_information" : {
+            "type" : "string",
+            "description" : "The information about the system."
+          }
+        },
+        "description" : "Detailed information about the appliance."
+      },
+      "ApplianceInfoDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Detailed information about the appliance.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ApplianceInfo"
+        } ]
+      },
+      "ApplianceX509Certificate" : {
+        "type" : "object",
+        "properties" : {
+          "serial_number" : {
+            "type" : "string",
+            "description" : "The serial number of the certificate, represented as string. The serial number is a number assigned by the certification authority to each certificate. It must be unique for each certificate issued by a given CA (i.e., the issuer name and serial number identify a unique certificate)."
+          },
+          "not_after" : {
+            "type" : "integer",
+            "description" : "End date, represented as number of milliseconds, from the validity period of the certificate.",
+            "format" : "int64"
+          },
+          "not_before" : {
+            "type" : "integer",
+            "description" : "Start date, represented as number of milliseconds, from the validity period of the certificate.",
+            "format" : "int64"
+          },
+          "signature" : {
+            "type" : "string",
+            "description" : "Signature value as Base64 encoded string (with ISO-8859-1 charset) from the certificate."
+          },
+          "version" : {
+            "type" : "integer",
+            "description" : "Version number from the certificate.",
+            "format" : "int32",
+            "example" : 3
+          },
+          "issuer_dn" : {
+            "type" : "string",
+            "description" : "Issuer distinguished name of the certificate.",
+            "example" : "C=US, OU=DR Division, O=\"VMware, Inc.\", CN=\"VMware, Inc.\""
+          },
+          "subject_dn" : {
+            "type" : "string",
+            "description" : "Subject distinguished name of the certificate.",
+            "example" : "C=US, OU=DR Division, O=\"VMware, Inc.\", CN=\"VMware, Inc.\""
+          },
+          "sig_alg_name" : {
+            "type" : "string",
+            "description" : " Gets the signature algorithm name for the certificate signature algorithm.",
+            "example" : "SHA256withRSA"
+          },
+          "sig_alg_oid" : {
+            "type" : "string",
+            "description" : "Signature algorithm OID string from the certificate.\nAn OID is represented by a set of nonnegative whole numbers separated by periods.",
+            "example" : "1.2.840.10040.4.3"
+          },
+          "public_key" : {
+            "type" : "string",
+            "description" : "Public key of the certificate."
+          },
+          "public_key_format" : {
+            "type" : "string",
+            "description" : "Public key format of the certificate.",
+            "example" : "X.509"
+          },
+          "public_key_algorithm" : {
+            "type" : "string",
+            "description" : "Public key algorithm of the certificate.",
+            "example" : "RSA"
+          },
+          "thumbprint" : {
+            "type" : "string",
+            "description" : "Thumbprint of the certificate."
+          },
+          "certificate" : {
+            "type" : "string",
+            "description" : "Certificate in PEM format."
+          },
+          "issuer_unique_id" : {
+            "type" : "array",
+            "description" : "Issuer unique ID.",
+            "items" : {
+              "type" : "boolean",
+              "description" : "Issuer unique ID."
+            }
+          },
+          "subject_unique_id" : {
+            "type" : "array",
+            "description" : "Subject unique ID.",
+            "items" : {
+              "type" : "boolean",
+              "description" : "Subject unique ID."
+            }
+          },
+          "key_usage" : {
+            "type" : "array",
+            "description" : "Boolean array representing bits of the KeyUsage extension, (OID = 2.5.29.15).\nThe key usage extension defines the purpose (e.g., encipherment, signature, certificate signing) of the key contained in the certificate.\nThe ASN.1 definition for this is:\n<pre>\nKeyUsage ::= BIT STRING {\n     digitalSignature        (0),\n     nonRepudiation          (1),\n     keyEncipherment         (2),\n     dataEncipherment        (3),\n     keyAgreement            (4),\n     keyCertSign             (5),\n     cRLSign                 (6),\n     encipherOnly            (7),\n     decipherOnly            (8) }\n</pre>",
+            "items" : {
+              "type" : "boolean",
+              "description" : "Boolean array representing bits of the KeyUsage extension, (OID = 2.5.29.15).\nThe key usage extension defines the purpose (e.g., encipherment, signature, certificate signing) of the key contained in the certificate.\nThe ASN.1 definition for this is:\n<pre>\nKeyUsage ::= BIT STRING {\n     digitalSignature        (0),\n     nonRepudiation          (1),\n     keyEncipherment         (2),\n     dataEncipherment        (3),\n     keyAgreement            (4),\n     keyCertSign             (5),\n     cRLSign                 (6),\n     encipherOnly            (7),\n     decipherOnly            (8) }\n</pre>"
+            }
+          },
+          "issuer_alternative_names" : {
+            "type" : "array",
+            "description" : "Issuer alternative names.",
+            "items" : {
+              "type" : "string",
+              "description" : "Issuer alternative names."
+            }
+          },
+          "subject_alternative_names" : {
+            "type" : "array",
+            "description" : "Subject alternative names.",
+            "items" : {
+              "type" : "string",
+              "description" : "Subject alternative names."
+            }
+          },
+          "extended_key_usage" : {
+            "type" : "array",
+            "description" : "Indicates one or more purposes for which the certified public key may be used, in addition to or in place of the basic purposes indicated in the key usage extension field.",
+            "items" : {
+              "type" : "string",
+              "description" : "Indicates one or more purposes for which the certified public key may be used, in addition to or in place of the basic purposes indicated in the key usage extension field."
+            }
+          },
+          "trusted" : {
+            "type" : "boolean",
+            "description" : "Whether this certificate is trusted."
+          }
+        },
+        "description" : "Appliance certificate in X509 format."
+      },
+      "ApplianceX509CertificateDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Appliance certificate in X509 format.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ApplianceX509Certificate"
+        } ]
+      },
+      "CaCertificateInfo" : {
+        "required" : [ "value" ],
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "string",
+            "description" : "CA certificate in the PEM format."
+          }
+        },
+        "description" : "Information about the CA certificate."
+      },
+      "CaX509Certificate" : {
+        "type" : "object",
+        "properties" : {
+          "serial_number" : {
+            "type" : "string",
+            "description" : "The serial number of the certificate, represented as string. The serial number is a number assigned by the certification authority to each certificate. It must be unique for each certificate issued by a given CA (i.e., the issuer name and serial number identify a unique certificate)."
+          },
+          "not_after" : {
+            "type" : "integer",
+            "description" : "End date, represented as number of milliseconds, from the validity period of the certificate.",
+            "format" : "int64"
+          },
+          "not_before" : {
+            "type" : "integer",
+            "description" : "Start date, represented as number of milliseconds, from the validity period of the certificate.",
+            "format" : "int64"
+          },
+          "signature" : {
+            "type" : "string",
+            "description" : "Signature value as Base64 encoded string (with ISO-8859-1 charset) from the certificate."
+          },
+          "version" : {
+            "type" : "integer",
+            "description" : "Version number from the certificate.",
+            "format" : "int32",
+            "example" : 3
+          },
+          "issuer_dn" : {
+            "type" : "string",
+            "description" : "Issuer distinguished name of the certificate.",
+            "example" : "C=US, OU=DR Division, O=\"VMware, Inc.\", CN=\"VMware, Inc.\""
+          },
+          "subject_dn" : {
+            "type" : "string",
+            "description" : "Subject distinguished name of the certificate.",
+            "example" : "C=US, OU=DR Division, O=\"VMware, Inc.\", CN=\"VMware, Inc.\""
+          },
+          "sig_alg_name" : {
+            "type" : "string",
+            "description" : " Gets the signature algorithm name for the certificate signature algorithm.",
+            "example" : "SHA256withRSA"
+          },
+          "sig_alg_oid" : {
+            "type" : "string",
+            "description" : "Signature algorithm OID string from the certificate.\nAn OID is represented by a set of nonnegative whole numbers separated by periods.",
+            "example" : "1.2.840.10040.4.3"
+          },
+          "public_key" : {
+            "type" : "string",
+            "description" : "Public key of the certificate."
+          },
+          "public_key_format" : {
+            "type" : "string",
+            "description" : "Public key format of the certificate.",
+            "example" : "X.509"
+          },
+          "public_key_algorithm" : {
+            "type" : "string",
+            "description" : "Public key algorithm of the certificate.",
+            "example" : "RSA"
+          },
+          "thumbprint" : {
+            "type" : "string",
+            "description" : "Thumbprint of the certificate."
+          },
+          "certificate" : {
+            "type" : "string",
+            "description" : "Certificate in PEM format."
+          },
+          "issuer_unique_id" : {
+            "type" : "array",
+            "description" : "Issuer unique ID.",
+            "items" : {
+              "type" : "boolean",
+              "description" : "Issuer unique ID."
+            }
+          },
+          "subject_unique_id" : {
+            "type" : "array",
+            "description" : "Subject unique ID.",
+            "items" : {
+              "type" : "boolean",
+              "description" : "Subject unique ID."
+            }
+          },
+          "key_usage" : {
+            "type" : "array",
+            "description" : "Boolean array representing bits of the KeyUsage extension, (OID = 2.5.29.15).\nThe key usage extension defines the purpose (e.g., encipherment, signature, certificate signing) of the key contained in the certificate.\nThe ASN.1 definition for this is:\n<pre>\nKeyUsage ::= BIT STRING {\n     digitalSignature        (0),\n     nonRepudiation          (1),\n     keyEncipherment         (2),\n     dataEncipherment        (3),\n     keyAgreement            (4),\n     keyCertSign             (5),\n     cRLSign                 (6),\n     encipherOnly            (7),\n     decipherOnly            (8) }\n</pre>",
+            "items" : {
+              "type" : "boolean",
+              "description" : "Boolean array representing bits of the KeyUsage extension, (OID = 2.5.29.15).\nThe key usage extension defines the purpose (e.g., encipherment, signature, certificate signing) of the key contained in the certificate.\nThe ASN.1 definition for this is:\n<pre>\nKeyUsage ::= BIT STRING {\n     digitalSignature        (0),\n     nonRepudiation          (1),\n     keyEncipherment         (2),\n     dataEncipherment        (3),\n     keyAgreement            (4),\n     keyCertSign             (5),\n     cRLSign                 (6),\n     encipherOnly            (7),\n     decipherOnly            (8) }\n</pre>"
+            }
+          },
+          "issuer_alternative_names" : {
+            "type" : "array",
+            "description" : "Issuer alternative names.",
+            "items" : {
+              "type" : "string",
+              "description" : "Issuer alternative names."
+            }
+          },
+          "subject_alternative_names" : {
+            "type" : "array",
+            "description" : "Subject alternative names.",
+            "items" : {
+              "type" : "string",
+              "description" : "Subject alternative names."
+            }
+          },
+          "extended_key_usage" : {
+            "type" : "array",
+            "description" : "Indicates one or more purposes for which the certified public key may be used, in addition to or in place of the basic purposes indicated in the key usage extension field.",
+            "items" : {
+              "type" : "string",
+              "description" : "Indicates one or more purposes for which the certified public key may be used, in addition to or in place of the basic purposes indicated in the key usage extension field."
+            }
+          },
+          "trusted_issuer" : {
+            "type" : "string",
+            "description" : "Trusted issuer of the certificate.",
+            "example" : "C=US, OU=DR Division, O=\"VMware, Inc.\", CN=\"VMware, Inc.\""
+          },
+          "root" : {
+            "type" : "boolean",
+            "description" : "Whether this is root certificate. If false - this is intermediate certificate."
+          }
+        },
+        "description" : "CA certificate in X509 format."
+      },
+      "CaX509CertificateDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "CA certificate in X509 format.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CaX509Certificate"
+        } ]
+      },
+      "CaX509CertificateDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CaX509Certificate"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: CA certificate in X509 format."
+      },
+      "CertificateSigningRequestData" : {
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "string",
+            "description" : "Certificate signing request in PEM format."
+          }
+        },
+        "description" : "Certificate signing request to be signed."
+      },
+      "CertificateSigningRequestDataDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Certificate signing request to be signed.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CertificateSigningRequestData"
+        } ]
+      },
+      "CertificateSigningRequestInputData" : {
+        "type" : "object",
+        "properties" : {
+          "common_name" : {
+            "type" : "string",
+            "description" : "Common name to be set in CSR. Usually, it is the fully qualified domain name for the server. If not set, data provided in FQDN (OS hostname) will be used.",
+            "nullable" : true
+          },
+          "organization" : {
+            "type" : "string",
+            "description" : "The exact legal name of your organization. Do not use an abbreviation. If not set, VMware default is used.",
+            "nullable" : true,
+            "example" : "VMware"
+          },
+          "organization_unit" : {
+            "type" : "string",
+            "description" : "Section of the organization. If not set, VMware default is used.",
+            "nullable" : true,
+            "example" : "VMware organization unit"
+          },
+          "fqdn" : {
+            "type" : "string",
+            "description" : "A list of comma-separated FQDN strings to be used for SAN extensions. If not set, OS hostname is used.",
+            "nullable" : true
+          },
+          "ip" : {
+            "type" : "string",
+            "description" : "A list of comma-separated IP strings to be used for SAN extensions. Will be empty, if not set.",
+            "nullable" : true,
+            "example" : "10.20.11.15, 10.20.11.26"
+          },
+          "locality" : {
+            "type" : "string",
+            "description" : "The city where organization is legally located. If not set, VMware default will be used.",
+            "nullable" : true,
+            "example" : "Palo Alto"
+          },
+          "state" : {
+            "type" : "string",
+            "description" : "The state or province where organization is legally located. Do not use an abbreviation. If not set, VMware default is used.",
+            "nullable" : true,
+            "example" : "California"
+          },
+          "country" : {
+            "type" : "string",
+            "description" : "The two-letter ISO abbreviation for organization country. If not set, 'US' default is used.",
+            "nullable" : true,
+            "example" : "US"
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "An email address to contact the organization. Will be empty, if not set.",
+            "nullable" : true,
+            "example" : "admin@vmware.com"
+          }
+        },
+        "description" : "Data to be used for generating the signing request.",
+        "nullable" : true
+      },
+      "CheckExtensionKeyRegistrationSpec" : {
+        "required" : [ "connection_spec", "extension_key" ],
+        "type" : "object",
+        "properties" : {
+          "extension_key" : {
+            "type" : "string",
+            "description" : "The extension key to be checked."
+          },
+          "connection_spec" : {
+            "$ref" : "#/components/schemas/VcConnectionSpec"
+          }
+        },
+        "description" : "Data to be used to check extension key registration."
+      },
+      "ConfigurationInfo" : {
+        "required" : [ "connection", "credentials" ],
+        "type" : "object",
+        "properties" : {
+          "site_name" : {
+            "type" : "string",
+            "description" : "The DR site name. If not set, the site name will be read from the current DR configuration if it exists.",
+            "nullable" : true
+          },
+          "admin_email" : {
+            "type" : "string",
+            "description" : "Administrator email.",
+            "nullable" : true
+          },
+          "host_name" : {
+            "type" : "string",
+            "description" : "The appliance FQDN. Used when registering with the infrastructure and management nodes. If not set, the DNS name will be used.",
+            "nullable" : true
+          },
+          "extension_key" : {
+            "type" : "string",
+            "description" : "The solution extension key. For vSphere Replication \"com.vmware.vcHms\" must be used. If not set, the default extension key value of \"com.vmware.vcDr\" will be used.",
+            "nullable" : true,
+            "example" : "com.vmware.vcHms"
+          },
+          "connection" : {
+            "$ref" : "#/components/schemas/ConnectionSpecData"
+          },
+          "credentials" : {
+            "$ref" : "#/components/schemas/Credentials"
+          },
+          "organization" : {
+            "type" : "string",
+            "description" : "Organization name.",
+            "nullable" : true
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Plugin description.",
+            "nullable" : true
+          },
+          "clock_tolerance_seconds" : {
+            "type" : "integer",
+            "description" : "The allowed server clock tolerance in seconds. If not set, the default value of 3 seconds will be used. This parameter will be used only when validating the VC server where DR solution will be registered. Clock difference between the DR virtual appliance and vCenter Server should not exceed this value, otherwise validation (or configuration) will fail.",
+            "format" : "int64",
+            "nullable" : true
+          },
+          "local_server_uuid" : {
+            "type" : "string",
+            "description" : "UUID of the local DR server. Filled when the server is returning this data object.",
+            "format" : "uuid",
+            "nullable" : true
+          }
+        },
+        "description" : "Information about the current appliance configuration."
+      },
+      "ConfigurationInfoDrResponseEntity" : {
+        "required" : [ "connection", "credentials" ],
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Information about the current appliance configuration.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConfigurationInfo"
+        } ]
+      },
+      "ConnectionSpecData" : {
+        "required" : [ "psc_thumbprint", "psc_uri", "vc_instance_id", "vc_thumbprint" ],
+        "type" : "object",
+        "properties" : {
+          "psc_uri" : {
+            "type" : "string",
+            "description" : "The PSC node URI. FQDN + optional port. If port not specified 443 will be used."
+          },
+          "psc_thumbprint" : {
+            "type" : "string",
+            "description" : "Thumbprint of the PSC node's certificate. When the correct value is provided, all security checks of the certificate are off.",
+            "nullable" : true
+          },
+          "vc_instance_id" : {
+            "type" : "string",
+            "description" : "Identifier of the MGMT node to register with.",
+            "format" : "uuid"
+          },
+          "vc_thumbprint" : {
+            "type" : "string",
+            "description" : "Thumbprint of the MGMT node's certificate.",
+            "nullable" : true
+          }
+        },
+        "description" : "Contains connection information for a service. If not set the connection parameters will be read from the current DR solution configuration if it exists."
+      },
+      "Credentials" : {
+        "required" : [ "admin_password", "admin_user" ],
+        "type" : "object",
+        "properties" : {
+          "admin_user" : {
+            "type" : "string",
+            "description" : "The name of a user with sufficient privileges to perform configuration tasks on the infrastructure, management nodes, and the infrastructure node."
+          },
+          "admin_password" : {
+            "type" : "string",
+            "description" : "Password for the administrator user."
+          }
+        },
+        "description" : "Contains credentials information."
+      },
+      "CsrCertificateData" : {
+        "required" : [ "certificate" ],
+        "type" : "object",
+        "properties" : {
+          "certificate" : {
+            "type" : "string",
+            "description" : "New server certificate to be used in PEM format."
+          },
+          "ca_chain" : {
+            "type" : "array",
+            "description" : "A list of intermediate CA certificates used to sign server certificate in PEM format.",
+            "nullable" : true,
+            "items" : {
+              "type" : "string",
+              "description" : "A list of intermediate CA certificates used to sign server certificate in PEM format.",
+              "nullable" : true
+            }
+          }
+        },
+        "description" : "Signed certificate data based on a generated CSR.",
+        "nullable" : true
+      },
+      "DnsInfo" : {
+        "required" : [ "mode" ],
+        "type" : "object",
+        "properties" : {
+          "mode" : {
+            "type" : "string",
+            "description" : "Mode of the domain name system.",
+            "enum" : [ "DHCP", "STATIC" ]
+          },
+          "hostname" : {
+            "type" : "string",
+            "description" : "Host name of the domain name system.",
+            "nullable" : true
+          },
+          "servers" : {
+            "type" : "array",
+            "description" : "Servers to be used for STATIC mode. Value ignored when DHCP mode.",
+            "nullable" : true,
+            "items" : {
+              "type" : "string",
+              "description" : "Servers to be used for STATIC mode. Value ignored when DHCP mode.",
+              "nullable" : true
+            }
+          }
+        },
+        "description" : "DNS settings."
+      },
+      "DnsInfoDrResponseEntity" : {
+        "required" : [ "mode" ],
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "DNS settings.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/DnsInfo"
+        } ]
+      },
+      "HrefDrData" : {
+        "type" : "object",
+        "properties" : {
+          "href" : {
+            "type" : "string"
+          }
+        },
+        "description" : "Previous entity link"
+      },
+      "InstallCertificateSpec" : {
+        "type" : "object",
+        "properties" : {
+          "selfsigned_format" : {
+            "$ref" : "#/components/schemas/CertificateSigningRequestInputData"
+          },
+          "csr_format" : {
+            "$ref" : "#/components/schemas/CsrCertificateData"
+          },
+          "pkcs12_format" : {
+            "$ref" : "#/components/schemas/Pkcs12CertificateData"
+          }
+        },
+        "description" : "Specification to install new certificate:<ul><li>selfsignedFormat - Generate and install new self-signed certificate.<li>csrFormat - Install signed certificate based on a generated CSR.<li>pkcs12Format - Install PKCS#12 certificate.</ul><p>Initialize ONLY the property corresponding to the desired certificate installation format. Leave rest of the fields <code>null</code> or unset."
+      },
+      "Ipv4Info" : {
+        "required" : [ "assignment_mode" ],
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "type" : "string",
+            "description" : "IPv4 address, for example, \"10.20.80.191\". Value not needed when DHCP mode.",
+            "nullable" : true,
+            "example" : "10.20.80.191"
+          },
+          "default_gateway" : {
+            "type" : "string",
+            "description" : "IPv4 address of the default gateway. Value not needed when DHCP mode.",
+            "nullable" : true
+          },
+          "assignment_mode" : {
+            "type" : "string",
+            "description" : "Address assignment mode:<ul><li>DCHP - IPv4 address is automatically assigned by a DHCP server.<li>STATIC - IPv4 address is static.<li>UNCONFIGURED - The IPv4 protocol is not configured.</ul>",
+            "enum" : [ "DHCP", "STATIC", "UNCONFIGURED" ]
+          },
+          "prefix" : {
+            "maximum" : 31,
+            "minimum" : 8,
+            "type" : "integer",
+            "description" : "IPv4 CIDR prefix, for example , 24.> See http://www.oav.net/mirrors/cidr.html for netmask-to-prefix conversion. Value not needed when DHCP mode.",
+            "format" : "int32",
+            "nullable" : true
+          }
+        },
+        "description" : "IPv4 settings.",
+        "nullable" : true
+      },
+      "Ipv6Address" : {
+        "required" : [ "address", "prefix" ],
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "type" : "string",
+            "description" : "Internet Protocol version six address.",
+            "example" : "fc00:10:20:83:20c:29ff:fe94:bb5a"
+          },
+          "prefix" : {
+            "maximum" : 128,
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "IPv6 CIDR prefix, for example, 64.",
+            "format" : "int32",
+            "example" : 64
+          }
+        },
+        "description" : "IPv6 address.",
+        "nullable" : true
+      },
+      "Ipv6Info" : {
+        "required" : [ "autoconfigure", "dhcp" ],
+        "type" : "object",
+        "properties" : {
+          "autoconfigure" : {
+            "type" : "boolean",
+            "description" : "Address is assigned by Stateless Address Autoconfiguration (SLAAC). This option can be set to true in parallel with dhcp and static IPv6 addresses."
+          },
+          "dhcp" : {
+            "type" : "boolean",
+            "description" : "Address assigned by a DHCP server. This option can be set to true in parallel with autoconf and static IPv6 addresses."
+          },
+          "default_gateway" : {
+            "type" : "string",
+            "description" : "Default gateway for static IP address assignment. This configures the global IPv6 default gateway on the appliance with the specified gateway address and interface. This gateway replaces the existing default gateway configured on the appliance. However, if the gateway address is link-local, then it is added for that interface. This does not support configuration of multiple global default gateways through different interfaces.",
+            "nullable" : true
+          },
+          "addresses" : {
+            "type" : "array",
+            "description" : "A list of addresses to be statically assigned. Values can be available in parallel with set dhcp and autoconf.",
+            "nullable" : true,
+            "items" : {
+              "$ref" : "#/components/schemas/Ipv6Address"
+            }
+          }
+        },
+        "description" : "IPv6 settings.",
+        "nullable" : true
+      },
+      "ListVcServicesSpec" : {
+        "required" : [ "psc_uri" ],
+        "type" : "object",
+        "properties" : {
+          "psc_uri" : {
+            "type" : "string",
+            "description" : "Platform Service Controller URI."
+          },
+          "psc_thumbprint" : {
+            "type" : "string",
+            "description" : "Thumbprint of the PSC node's certificate. When the correct value is provided all security checks of the certificate are off.",
+            "nullable" : true
+          },
+          "service_id" : {
+            "type" : "string",
+            "description" : "Optionally narrow VC search to a specific service ID.",
+            "nullable" : true
+          }
+        },
+        "description" : "Spec to list VC services."
+      },
+      "MetaError" : {
+        "required" : [ "field" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string",
+            "description" : "Error code"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Error message"
+          },
+          "field" : {
+            "type" : "string",
+            "description" : "JSONPath of the entity field that causes this error."
+          }
+        },
+        "description" : "Response metadata error"
+      },
+      "MetaLinks" : {
+        "type" : "object",
+        "properties" : {
+          "next" : {
+            "$ref" : "#/components/schemas/HrefDrData"
+          },
+          "self" : {
+            "$ref" : "#/components/schemas/HrefDrData"
+          },
+          "previous" : {
+            "$ref" : "#/components/schemas/HrefDrData"
+          }
+        },
+        "description" : "Response meta links"
+      },
+      "Metadata" : {
+        "type" : "object",
+        "properties" : {
+          "errors" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "Response payload data errors.",
+            "items" : {
+              "$ref" : "#/components/schemas/MetaError"
+            }
+          }
+        },
+        "description" : "Response meta data. Contains data about the response payload data."
+      },
+      "MetadataList" : {
+        "type" : "object",
+        "properties" : {
+          "errors" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "Response payload data errors.",
+            "items" : {
+              "$ref" : "#/components/schemas/MetaError"
+            }
+          },
+          "total" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "Total number of entities",
+            "format" : "int64"
+          },
+          "offset" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "Offset number of entities",
+            "format" : "int64"
+          },
+          "limit" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "Limit number of entities",
+            "format" : "int64"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/MetaLinks"
+          }
+        },
+        "description" : "List metadata"
+      },
+      "MountPoint" : {
+        "required" : [ "destination", "source" ],
+        "type" : "object",
+        "properties" : {
+          "source" : {
+            "type" : "string",
+            "description" : "Source path of the mount point. This is a path outside the container."
+          },
+          "destination" : {
+            "type" : "string",
+            "description" : "Destination path where the {@link #source} is mounted at. This is a path inside the container."
+          }
+        },
+        "description" : "Information about the bind mount of a container of a storage replication adapter. For more information see https://docs.docker.com/storage/bind-mounts."
+      },
+      "NetworkInfoData" : {
+        "type" : "object",
+        "properties" : {
+          "dns" : {
+            "$ref" : "#/components/schemas/DnsInfo"
+          },
+          "interfaces" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/NetworkInterfaceInfo"
+            }
+          }
+        },
+        "description" : "Network settings."
+      },
+      "NetworkInfoDataDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Network settings.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/NetworkInfoData"
+        } ]
+      },
+      "NetworkInterfaceInfo" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Status of the interface.",
+            "enum" : [ "DOWN", "UP" ]
+          },
+          "mac" : {
+            "type" : "string",
+            "description" : "MAC address of the interface.",
+            "example" : "00:0C:29:94:BB:5A"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the interface.",
+            "example" : "nic0"
+          },
+          "ipv4" : {
+            "$ref" : "#/components/schemas/Ipv4Info"
+          },
+          "ipv6" : {
+            "$ref" : "#/components/schemas/Ipv6Info"
+          }
+        },
+        "description" : "Information about network interface."
+      },
+      "NetworkInterfaceInfoDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Information about network interface.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/NetworkInterfaceInfo"
+        } ]
+      },
+      "NetworkInterfaceInfoDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/NetworkInterfaceInfo"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Information about network interface."
+      },
+      "Pkcs12CertificateData" : {
+        "required" : [ "certificate" ],
+        "type" : "object",
+        "properties" : {
+          "certificate" : {
+            "type" : "string",
+            "description" : "The certificate as string. Base64 encoded."
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "The password for the certificate.",
+            "nullable" : true
+          }
+        },
+        "description" : "Data to be used to install PKCS12 certificate.",
+        "nullable" : true
+      },
+      "ProbeSslSpec" : {
+        "required" : [ "uri" ],
+        "type" : "object",
+        "properties" : {
+          "uri" : {
+            "type" : "string",
+            "description" : "URI to probe."
+          }
+        },
+        "description" : "URI of the endpoint to probe."
+      },
+      "ReconfigureRequired" : {
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "boolean",
+            "description" : "Is reconfigure required"
+          }
+        },
+        "description" : "Details whether reconfigure operation is required after upgrade."
+      },
+      "ReconfigureRequiredDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Details whether reconfigure operation is required after upgrade.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ReconfigureRequired"
+        } ]
+      },
+      "ReplicationServerSettings" : {
+        "type" : "object",
+        "properties" : {
+          "filter_ip" : {
+            "type" : "string",
+            "description" : "IP to be used for vSphere Replication Server replication traffic. Can be empty."
+          },
+          "management_ip" : {
+            "type" : "string",
+            "description" : "IP to be used for vSphere Replication Server management traffic. Can be empty."
+          }
+        },
+        "description" : "This data object type describes the vSphere Replication Server filter and management traffic."
+      },
+      "ReplicationServerSettingsDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "This data object type describes the vSphere Replication Server filter and management traffic.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ReplicationServerSettings"
+        } ]
+      },
+      "ResponseError" : {
+        "type" : "object",
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "The code of the error."
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "The message of the error."
+          },
+          "op_id" : {
+            "type" : "string",
+            "description" : "The ID of the operation.",
+            "format" : "uuid"
+          }
+        },
+        "description" : "The error of the response."
+      },
+      "ServiceInfo" : {
+        "required" : [ "id", "is_running", "name", "startup_type" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Id of the service. Sometimes might be the same as its name.",
+            "example" : "ui-service"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Name of the service. Sometimes might be the same as its id.",
+            "example" : "ui-service"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Service description."
+          },
+          "startup_type" : {
+            "type" : "string",
+            "description" : "Startup type. Value must be one of the StartupTypeEnum. Example: \"Automatic\".",
+            "enum" : [ "AUTOMATIC", "MANUAL" ]
+          },
+          "is_running" : {
+            "type" : "boolean",
+            "description" : "Boolean value indicating if the service is running."
+          }
+        },
+        "description" : "Detailed information about a service."
+      },
+      "ServiceInfoDrResponseEntity" : {
+        "required" : [ "id", "is_running", "name", "startup_type" ],
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Detailed information about a service.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ServiceInfo"
+        } ]
+      },
+      "ServiceInfoDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ServiceInfo"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Detailed information about a service."
+      },
+      "SessionIdData" : {
+        "type" : "object",
+        "properties" : {
+          "session_id" : {
+            "type" : "string"
+          }
+        },
+        "description" : "Data including the new session id."
+      },
+      "SessionInfo" : {
+        "required" : [ "username" ],
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "description" : "User name for the current session."
+          }
+        },
+        "description" : "Information about the current session."
+      },
+      "SraContainer" : {
+        "required" : [ "container_id", "image_id" ],
+        "type" : "object",
+        "properties" : {
+          "container_id" : {
+            "type" : "string",
+            "description" : "ID of the container."
+          },
+          "image_id" : {
+            "type" : "string",
+            "description" : "SHA256 ID of the image from which the container was instantiated."
+          },
+          "mount_points" : {
+            "type" : "array",
+            "description" : "Mount points the container has, if any.",
+            "items" : {
+              "$ref" : "#/components/schemas/MountPoint"
+            }
+          }
+        },
+        "description" : "Information about the container of a storage replication adapter."
+      },
+      "StringDrData" : {
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "string",
+            "description" : "The string representation of a data."
+          }
+        },
+        "description" : "Contains string representation of a data."
+      },
+      "SupportBundleInfo" : {
+        "required" : [ "key", "md5", "time_created" ],
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string",
+            "description" : "The unique key identifier of this bundle."
+          },
+          "time_created" : {
+            "type" : "integer",
+            "description" : "The time when the bundle was generated, in milliseconds. This is the local server time in UTC.",
+            "format" : "int64"
+          },
+          "size" : {
+            "type" : "integer",
+            "description" : "The size in bytes of the diagnostic bundle file.",
+            "format" : "int64"
+          },
+          "md5" : {
+            "type" : "string",
+            "description" : "The MD5 checksum for the bundle file."
+          }
+        },
+        "description" : "Support bundle, containing logs, dumps and configuration files."
+      },
+      "SupportBundleInfoDrResponseEntity" : {
+        "required" : [ "key", "md5", "time_created" ],
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Support bundle, containing logs, dumps and configuration files.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SupportBundleInfo"
+        } ]
+      },
+      "SupportBundleInfoDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SupportBundleInfo"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Support bundle, containing logs, dumps and configuration files."
+      },
+      "SyslogServerInfo" : {
+        "type" : "object",
+        "properties" : {
+          "host" : {
+            "type" : "string",
+            "description" : "The syslog server host."
+          },
+          "port" : {
+            "maximum" : 65353,
+            "minimum" : 1,
+            "type" : "integer",
+            "description" : "The syslog server port.",
+            "format" : "int32"
+          },
+          "protocol" : {
+            "type" : "string",
+            "description" : "The syslog server protocol.",
+            "enum" : [ "TCP", "UDP", "RELP" ]
+          }
+        },
+        "description" : "Information about syslog server."
+      },
+      "SyslogServerInfoDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Information about syslog server.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SyslogServerInfo"
+        } ]
+      },
+      "SyslogServerInfoDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SyslogServerInfo"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Information about syslog server."
+      },
+      "Task" : {
+        "required" : [ "status" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "ID of the task."
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Description of the task."
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Operation type of the task."
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Status of the task.",
+            "enum" : [ "QUEUED", "RUNNING", "SUCCESS", "ERROR", "CANCELLED" ]
+          },
+          "error" : {
+            "$ref" : "#/components/schemas/TaskError"
+          },
+          "result" : {
+            "type" : "object",
+            "description" : "Information about the task result if the task status is SUCCESS.",
+            "nullable" : true
+          },
+          "progress" : {
+            "maximum" : 100,
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "The current progress of the task, in percentage number.",
+            "format" : "int32"
+          },
+          "start_time" : {
+            "type" : "integer",
+            "description" : "The start time of the task, in milliseconds.",
+            "format" : "int64",
+            "nullable" : true
+          },
+          "complete_time" : {
+            "type" : "integer",
+            "description" : "The complete time of the task, in milliseconds.",
+            "format" : "int64",
+            "nullable" : true
+          }
+        },
+        "description" : "Info about a task."
+      },
+      "TaskDrResponseEntity" : {
+        "required" : [ "status" ],
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Info about a task.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Task"
+        } ]
+      },
+      "TaskDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Task"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Info about a task."
+      },
+      "TaskError" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string",
+            "description" : "The message of the error.",
+            "nullable" : true
+          },
+          "details" : {
+            "type" : "string",
+            "description" : "The details of the error.",
+            "nullable" : true
+          }
+        },
+        "description" : "Detailed information about the error if the task status is ERROR.",
+        "nullable" : true
+      },
+      "TestMessage" : {
+        "required" : [ "message" ],
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string",
+            "description" : "The message which will be sent to all syslog servers."
+          }
+        },
+        "description" : "Test message to be sent to all syslog servers."
+      },
+      "TimeSettings" : {
+        "type" : "object",
+        "properties" : {
+          "current_time" : {
+            "type" : "integer",
+            "description" : "Current time, in milliseconds.",
+            "format" : "int64"
+          },
+          "zone" : {
+            "type" : "string",
+            "description" : "Current time zone."
+          },
+          "synchronization" : {
+            "$ref" : "#/components/schemas/TimeSynchronization"
+          }
+        },
+        "description" : "Information about time settings."
+      },
+      "TimeSettingsDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Information about time settings.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/TimeSettings"
+        } ]
+      },
+      "TimeSynchronization" : {
+        "type" : "object",
+        "properties" : {
+          "mode" : {
+            "type" : "string",
+            "description" : "Time synchronization settings:<ul><li>DISABLED - Time synchronization is deactivated.<li>NTP - NTP-based time synchronization.<li>HOST - VMware Tool-based time synchronization.</ul>",
+            "enum" : [ "DISABLED", "NTP", "HOST" ]
+          },
+          "ntp_servers" : {
+            "type" : "array",
+            "description" : "NTP servers",
+            "nullable" : true,
+            "items" : {
+              "type" : "string",
+              "description" : "NTP servers",
+              "nullable" : true
+            }
+          }
+        },
+        "description" : "Time synchronization settings."
+      },
+      "TimeZone" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "Name of the time zone."
+          }
+        },
+        "description" : "Information about a time zone."
+      },
+      "TimeZoneDrResponseEntity" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Information about a time zone.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/TimeZone"
+        } ]
+      },
+      "TimeZoneDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TimeZone"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Information about a time zone."
+      },
+      "UpdateInfo" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "type" : "string",
+            "description" : "The version of the update."
+          },
+          "update_type" : {
+            "type" : "string",
+            "description" : "The type of the update.",
+            "nullable" : true,
+            "enum" : [ "FEATURE", "SECURITY", "FIX", "MULTIPLE" ]
+          },
+          "release_date" : {
+            "type" : "integer",
+            "description" : "Release date of the update, in milliseconds.",
+            "format" : "int64"
+          },
+          "reboot_required" : {
+            "type" : "boolean",
+            "description" : "Boolean to indicate whether a reboot is required."
+          },
+          "severity" : {
+            "type" : "string",
+            "description" : "The severity of the update.",
+            "nullable" : true,
+            "enum" : [ "MODERATE", "IMPORTANT", "CRITICAL" ]
+          },
+          "summary" : {
+            "type" : "string",
+            "description" : "The summary of the update.",
+            "nullable" : true
+          },
+          "eula" : {
+            "type" : "array",
+            "description" : "The EULA of the update.",
+            "items" : {
+              "type" : "string",
+              "description" : "The EULA of the update."
+            }
+          }
+        },
+        "description" : "Information about an update."
+      },
+      "UpdateNetworkInterfaceInfoSpec" : {
+        "type" : "object",
+        "properties" : {
+          "ipv4" : {
+            "$ref" : "#/components/schemas/Ipv4Info"
+          },
+          "ipv6" : {
+            "$ref" : "#/components/schemas/Ipv6Info"
+          }
+        },
+        "description" : "Spec to update network interface configuration."
+      },
+      "UpdatePasswordSpec" : {
+        "required" : [ "new_password", "password", "username" ],
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "description" : "Appliance username.<br>The user for which the password will be changed.<br>For now this parameter is not taken into account."
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "Current password for appliance user."
+          },
+          "new_password" : {
+            "pattern" : "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ !\\\"#$%&'()*+,-.\\\\/\\\\\\\\:;<=>?@[\\\\]^_`{|}~\\\"])[a-zA-Z0-9 !\\\"#$%&'()*+,-.\\\\/\\\\\\\\:;<=>?@[\\\\]^_`{|}~\\\"]{8,}$",
+            "type" : "string",
+            "description" : "New password for the appliance user.<br><ul>Requirements:<li>at least 8 characters long</li><li>with minimum one small letter</li><li>with minimum one capital letter</li><li>with minimum one number</li><li>with minimum one special character</li><li>differs from the last five passwords</li></ul>"
+          }
+        },
+        "description" : "Spec to update appliance password."
+      },
+      "UpdateTimeSettingsSpec" : {
+        "type" : "object",
+        "properties" : {
+          "zone" : {
+            "type" : "string",
+            "description" : "Current time zone"
+          },
+          "synchronization" : {
+            "$ref" : "#/components/schemas/TimeSynchronization"
+          }
+        },
+        "description" : "Time settings update spec."
+      },
+      "UpdatesRepository" : {
+        "type" : "object",
+        "properties" : {
+          "url" : {
+            "type" : "string",
+            "description" : "Updates repository URL",
+            "nullable" : true
+          },
+          "mounted_iso" : {
+            "type" : "boolean",
+            "description" : "True if the appliance has a mounted ISO for updates. In this case - url, user name and password fields must be null."
+          },
+          "username" : {
+            "type" : "string",
+            "description" : "User name for the update repository. If a user name is specified, a password is required as well.",
+            "nullable" : true
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "Password for the update repository. If a user name is specified, a password is required as well.",
+            "nullable" : true
+          }
+        },
+        "description" : "Detailed information about updates repository."
+      },
+      "UpdatesRepositoryDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Detailed information about updates repository.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/UpdatesRepository"
+        } ]
+      },
+      "VcConnectionSpec" : {
+        "required" : [ "connection_spec", "credentials" ],
+        "type" : "object",
+        "properties" : {
+          "credentials" : {
+            "$ref" : "#/components/schemas/Credentials"
+          },
+          "connection_spec" : {
+            "$ref" : "#/components/schemas/ConnectionSpecData"
+          }
+        },
+        "description" : "Data to be used to connect to vSphere infrastructure."
+      },
+      "VcInfo" : {
+        "type" : "object",
+        "properties" : {
+          "url" : {
+            "type" : "string",
+            "description" : "VC url"
+          },
+          "service_id" : {
+            "type" : "string",
+            "description" : "Service ID"
+          },
+          "node_id" : {
+            "type" : "string",
+            "description" : "Node ID"
+          },
+          "product_version" : {
+            "type" : "string",
+            "description" : "Product version"
+          }
+        },
+        "description" : "Structure containing VC information."
+      },
+      "VcInfoDrResponseEntity" : {
+        "type" : "object",
+        "properties" : {
+          "_meta" : {
+            "$ref" : "#/components/schemas/Metadata"
+          }
+        },
+        "description" : "Structure containing VC information.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/VcInfo"
+        } ]
+      },
+      "VcInfoDrResponseList" : {
+        "type" : "object",
+        "properties" : {
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/VcInfo"
+            }
+          },
+          "_meta" : {
+            "$ref" : "#/components/schemas/MetadataList"
+          }
+        },
+        "description" : "List of entities about: Structure containing VC information."
+      }
+    },
+    "securitySchemes" : {
+      "BasicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      },
+      "SessionHeader" : {
+        "type" : "apiKey",
+        "name" : "x-dr-session",
+        "in" : "header"
+      }
+    }
+  }
+}
