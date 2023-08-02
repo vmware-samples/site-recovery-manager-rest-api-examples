@@ -1,4 +1,5 @@
-/* Copyright (c) 2023 VMware, Inc. All rights reserved. -- VMware Confidential */
+/* Copyright 2023 VMware, Inc. */
+/* SPDX-License-Identifier: BSD-2-Clause */
 package dr.restapi.examples.srm;
 
 import dr.restapi.examples.apiclient.ApiClient;
@@ -50,6 +51,20 @@ public class CreateGroupAndPlan {
       obj.runWorkflow();
    }
 
+   /**
+    * Private utility method for executing a workflow to perform specific tasks using the API client.
+    * The method performs the following tasks in sequence:
+    * 1. Initializes the API client.
+    * 2. Logs in and obtains a session ID for authentication.
+    * 3. Sets the session ID as a default header for subsequent API calls.
+    * 4. Retrieves a list of pairings.
+    * 5. Identifies the pairing ID for the remote VC with a specific name.
+    * 6. Logs in remotely using the identified pairing ID.
+    * 7. Creates a protection group using the API client and pairing ID.
+    * 8. Waits for the protection group creation task to complete.
+    * 9. Creates a recovery plan using the API client, pairing ID, and protection group ID.
+    * 10. Waits for the recovery plan creation task to complete.
+    */
    private void runWorkflow() {
 
       ApiClient client = initApiClient();
@@ -80,6 +95,14 @@ public class CreateGroupAndPlan {
       System.out.println(planTaskEntity);
    }
 
+   /**
+    * Private utility method for creating a protection group with the specified parameters using the API client.
+    * The method calls the ProtectionApi to create a new protection group based on the provided parameters.
+    *
+    * @param client    The ApiClient instance used for making API calls.
+    * @param pairingId The pairing ID associated with the protection group.
+    * @return A TaskDrResponseEntity object representing the asynchronous task response for creating the group.
+    */
    private TaskDrResponseEntity runCreateGroup(ApiClient client, String pairingId) {
 
       ProtectionApi instance = new ProtectionApi(client);
@@ -97,6 +120,15 @@ public class CreateGroupAndPlan {
       return instance.createGroup(groupSpec, pairingId);
    }
 
+   /**
+    * Private utility method for creating a recovery plan with the specified parameters using the API client.
+    * The method calls the RecoveryApi to create a new recovery plan based on the provided parameters.
+    *
+    * @param client          The ApiClient instance used for making API calls.
+    * @param pairingId       The pairing ID associated with the recovery plan.
+    * @param protectionGroup The protection group to be included in the recovery plan.
+    * @return A TaskDrResponseEntity object representing the asynchronous task response for creating the plan.
+    */
    private TaskDrResponseEntity runCreatePlan(ApiClient client, String pairingId, String protectionGroup) {
 
       RecoveryApi instance = new RecoveryApi(client);

@@ -1,4 +1,5 @@
-/* Copyright (c) 2023 VMware, Inc. All rights reserved. -- VMware Confidential */
+/* Copyright 2023 VMware, Inc. */
+/* SPDX-License-Identifier: BSD-2-Clause */
 package dr.restapi.examples.srm;
 
 import dr.restapi.examples.apiclient.ApiClient;
@@ -10,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Utility class containing helper methods.
+ */
 public class Util {
 
    private static final String CONFIG_FILE_NAME = "dr-rest-api-examples.properties";
@@ -17,6 +21,15 @@ public class Util {
    private static final String MOREF_PARTS_SEPARATOR = ":";
 
 
+   /**
+    * Waits for a specific task to finish execution and retrieves the final status.
+    * The method will block the current thread until the task is no longer in "RUNNING" or "QUEUED" state.
+    *
+    * @param client The ApiClient instance used for making API calls.
+    * @param taskId The ID of the task to monitor.
+    * @return A TaskDrResponseEntity object containing the final status and other information about the task.
+    * @throws RuntimeException If any error occurs during the API call or the thread is interrupted.
+    */
    public static TaskDrResponseEntity waitTaskEnd(ApiClient client, String taskId) {
 
       TasksApi instance = new TasksApi(client);
@@ -36,6 +49,12 @@ public class Util {
       return info;
    }
 
+   /**
+    * Loads properties from a configuration file.
+    *
+    * @return A Properties object containing the loaded properties.
+    * @throws RuntimeException If an IOException occurs during the loading process.
+    */
    public static Properties loadProperties() {
 
       ClassLoader loader = Util.class.getClassLoader();
@@ -49,6 +68,14 @@ public class Util {
       return prop;
    }
 
+   /**
+    * Converts a string representation of a ManagedObjectReference (MoRef) to its individual parts.
+    * The MoRef string is expected to be in the format "type:value:serverGuid".
+    *
+    * @param stringValue The string representation of the ManagedObjectReference.
+    * @return An array of strings containing the individual parts of the ManagedObjectReference.
+    * @throws IllegalArgumentException If the input string is not in the valid format "type:value:serverGuid".
+    */
    public static String[] stringToMoref(String stringValue) {
 
       String[] taskParts = stringValue.split(MOREF_PARTS_SEPARATOR);
