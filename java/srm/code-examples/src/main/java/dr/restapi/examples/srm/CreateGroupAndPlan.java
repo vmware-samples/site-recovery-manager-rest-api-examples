@@ -1,5 +1,4 @@
-/* Copyright 2023 VMware, Inc. */
-/* SPDX-License-Identifier: BSD-2-Clause */
+/* Copyright (c) 2023 VMware, Inc. All rights reserved. -- VMware Confidential */
 package dr.restapi.examples.srm;
 
 import dr.restapi.examples.apiclient.ApiClient;
@@ -79,7 +78,6 @@ public class CreateGroupAndPlan {
       TaskDrResponseEntity planTaskEntity = runCreatePlan(client, pairingId.toString(), groupId);
       planTaskEntity = waitTaskEnd(client, planTaskEntity.getId());
       System.out.println(planTaskEntity);
-
    }
 
    private TaskDrResponseEntity runCreateGroup(ApiClient client, String pairingId) {

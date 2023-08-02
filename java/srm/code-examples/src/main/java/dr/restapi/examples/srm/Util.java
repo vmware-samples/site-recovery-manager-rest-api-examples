@@ -1,3 +1,4 @@
+/* Copyright (c) 2023 VMware, Inc. All rights reserved. -- VMware Confidential */
 package dr.restapi.examples.srm;
 
 import dr.restapi.examples.apiclient.ApiClient;
@@ -37,9 +38,8 @@ public class Util {
 
    public static Properties loadProperties() {
 
-      ClassLoader loader = CreateGroupAndPlan.class.getClassLoader();
+      ClassLoader loader = Util.class.getClassLoader();
       InputStream input = loader.getResourceAsStream(CONFIG_FILE_NAME);
-
       Properties prop = new Properties();
       try (InputStream io = input) {
          prop.load(io);

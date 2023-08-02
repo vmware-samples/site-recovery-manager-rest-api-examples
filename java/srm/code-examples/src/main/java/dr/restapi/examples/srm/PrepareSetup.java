@@ -1,3 +1,4 @@
+/* Copyright (c) 2023 VMware, Inc. All rights reserved. -- VMware Confidential */
 package dr.restapi.examples.srm;
 
 import dr.restapi.examples.apiclient.ApiClient;
@@ -8,6 +9,7 @@ import dr.restapi.examples.apiclient.auth.HttpBasicAuth;
 import dr.restapi.examples.apiclient.model.PairingDrResponseList;
 import dr.restapi.examples.apiclient.model.SessionIdData;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 
@@ -43,7 +45,8 @@ public class PrepareSetup {
 
       HttpBasicAuth auth = (HttpBasicAuth) client.getAuthentication("BasicAuth");
       auth.setUsername(SSO_USERNAME);
-      auth.setPassword(SSO_PASSWORD);
+      byte[] decodedBytes = Base64.getDecoder().decode(SSO_PASSWORD);
+      auth.setPassword(new String(decodedBytes));
 
       AuthenticationApi instance = new AuthenticationApi();
       instance.setApiClient(client);
@@ -51,7 +54,6 @@ public class PrepareSetup {
       SessionIdData sessionIdData = instance.login();
 
       return sessionIdData.getSessionId();
-
    }
 
    public static PairingDrResponseList runGetAllPairings(ApiClient client) {
@@ -66,16 +68,15 @@ public class PrepareSetup {
       String limit = null;
       String offset = null;
 
-      PairingDrResponseList pairingList = instance.getPairings(filterProp, filter, sortBy, orderBy, limit, offset);
-
-      return pairingList;
+      return instance.getPairings(filterProp, filter, sortBy, orderBy, limit, offset);
    }
 
    public static void runRemoteLogin(ApiClient client, String pairingId) {
 
       HttpBasicAuth auth = (HttpBasicAuth) client.getAuthentication("RemoteLoginBasicAuth");
       auth.setUsername(REMOTE_SSO_USERNAME);
-      auth.setPassword(REMOTE_SSO_PASSWORD);
+      byte[] decodedBytes = Base64.getDecoder().decode(REMOTE_SSO_PASSWORD);
+      auth.setPassword(new String(decodedBytes));
 
       PairingApi instance = new PairingApi();
       instance.setApiClient(client);
