@@ -24,11 +24,14 @@
    
    <dependencyManagement>
       <dependencies>
+         <!-- used in REST API Client generation -->
          <dependency>
             <groupId>io.swagger.codegen.v3</groupId>
             <artifactId>swagger-codegen-maven-plugin</artifactId>
             <version>3.0.46</version>
          </dependency>
+
+         <!-- used in REST API Client compilation -->
          <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -54,9 +57,16 @@
             <artifactId>gson-fire</artifactId>
             <version>1.8.5</version>
          </dependency>
+
+         <!-- used in code examples -->
+         <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+         </dependency>
       </dependencies>
    </dependencyManagement>
-   
+
    <dependencies>
       <dependency>
          <groupId>io.swagger.codegen.v3</groupId>

@@ -10,7 +10,7 @@ import dr.restapi.examples.apiclient.model.SessionIdData;
 import dr.restapi.examples.apiclient.model.SessionInfo;
 import dr.restapi.examples.vsphere.replication.exceptions.ExamplesExecutionException;
 
-import static dr.restapi.examples.vsphere.replication.util.Utils.toSystemOut;
+import static dr.restapi.examples.vsphere.replication.util.ClientUtils.toSystemOut;
 
 public class AuthenticationLibrary {
    private final AuthenticationApi authenticationApi;
@@ -28,11 +28,12 @@ public class AuthenticationLibrary {
     * returned session ID value.
     * @param username username
     * @param password password
-    * @return SessionIdData session id data
+    * @return session id data
     * @throws ExamplesExecutionException when login failed
     */
    public SessionIdData callLogin(String username, String password) {
-      HttpBasicAuth basicAuth = (HttpBasicAuth) this.authenticationApi.getApiClient().getAuthentication(Constants.BASIC_AUTH);
+      HttpBasicAuth basicAuth =
+            (HttpBasicAuth) this.authenticationApi.getApiClient().getAuthentication(Constants.BASIC_AUTH);
       basicAuth.setUsername(username);
       basicAuth.setPassword(password);
 
@@ -40,7 +41,7 @@ public class AuthenticationLibrary {
       try {
          sessionIdData = this.authenticationApi.login();
 
-         toSystemOut("New session is created. Session ID is [{0}].", sessionIdData.getSessionId());
+         toSystemOut("New session with Id [{0}] is created.", sessionIdData.getSessionId());
       } catch (ApiException ex) {
          throw new ExamplesExecutionException(ex, "Request 'AuthenticationApi.login' failed.");
       }
@@ -50,33 +51,33 @@ public class AuthenticationLibrary {
 
    /**
     * Returns information about the current session, if any.
-    * @return SessionInfo session info
-    * @throws ExamplesExecutionException when there is no authenticated session
+    * @return session info
+    * @throws ExamplesExecutionException when there is no authenticated session or other issue
     */
    public SessionInfo callGetCurrentSession() {
       SessionInfo sessionInfo;
       try {
          sessionInfo = this.authenticationApi.getCurrentSession();
 
-         toSystemOut("Current session's username is [{0}].", sessionInfo.getUsername());
+         toSystemOut("Current session username is [{0}].", sessionInfo.getUsername());
       } catch (ApiException ex) {
-         throw new ExamplesExecutionException(ex, "Request 'AuthenticationApi.callGetCurrentSession' failed.");
+         throw new ExamplesExecutionException(ex, "Request 'AuthenticationApi.getCurrentSession' failed.");
       }
 
       return sessionInfo;
    }
 
    /**
-    * Logs out if the session is authenticated. Logs out if the session is authenticated.
+    * Logs out if the session is authenticated.
     * @throws ExamplesExecutionException when logout failed
     */
    public void callLogout() {
       try {
          this.authenticationApi.logout();
 
-         toSystemOut("Successful session logout.");
+         toSystemOut("Session logout is successful.");
       } catch (ApiException ex) {
-         throw new ExamplesExecutionException(ex, "Request 'AuthenticationApi.callLogout' failed.");
+         throw new ExamplesExecutionException(ex, "Request 'AuthenticationApi.logout' failed.");
       }
    }
 }
