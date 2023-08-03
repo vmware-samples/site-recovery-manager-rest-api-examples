@@ -10,19 +10,18 @@ Before you start working with site-recovery-manager-rest-api-examples, please re
 
 We welcome many different types of contributions and not all of them need a Pull request. Contributions may include:
 
-* New features and proposals
-* Documentation
-* Bug fixes
-* Issue Triage
+* Ideas for REST API examples which are prime candidates for automation.
 * Answering questions and giving feedback
-* Helping to onboard new contributors
 * Other related activities
 
 ## Getting started
 
-_Provide information about how someone can find your project, get set up, build the code, test it, and submit a pull request successfully without having to ask any questions. Also include common errors people run into, or useful scripts they should run._
-
-_List any tests that the contributor should run / or testing processes to follow before submitting. Describe any automated and manual checks performed by reviewers._
+1. Please take a look at the examples we have provided so far.
+2. If you don't find something which can help you, please feel free to request it.
+3. If you have a working example of REST API calls, please share them, so we can include them in the collection.
+4. To make a contribution to existing examples:
+   a. verify you can run the existing example on your environment. You'll need a SRM/VR appliance with SRM/VR 8.6 and above for that.
+   b. make your change and test it locally and then make a pull request.
 
 
 ## Contribution Flow
@@ -42,9 +41,8 @@ We follow the GitHub workflow and you can find more details on the [GitHub flow 
 
 Before submitting your pull request, we advise you to use the following:
 
-1. Check if your code changes will pass both code linting checks and unit tests.
-2. Ensure your commit messages are descriptive. We follow the conventions on [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/). Be sure to include any related GitHub issue references in the commit message. See [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) for referencing issues and commits.
-3. Check the commits and commits messages and ensure they are free from typos.
+1. Ensure your commit messages are descriptive. We follow the conventions on [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/). Be sure to include any related GitHub issue references in the commit message. See [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) for referencing issues and commits.
+2. Check the commits and commits messages and ensure they are free from typos.
 
 ## Reporting Bugs and Creating Issues
 
