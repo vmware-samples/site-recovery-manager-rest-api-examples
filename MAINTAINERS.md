@@ -8,8 +8,8 @@ Senior Member of Technical Staff at VMware, Inc.
 **Yana Ivanova**  
 Senior Member of Technical Staff at VMware, Inc.
 
-**Zdravko Ivanov**
+**Zdravko Ivanov**  
 Staff at VMware, Inc
 
-**Emil Petkov**
+**Emil Petkov**  
 Manager R&D at VMware, Inc
