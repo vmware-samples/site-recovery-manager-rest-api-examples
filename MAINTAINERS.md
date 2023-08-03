@@ -6,4 +6,10 @@ The following are maintainers of this project.
 Senior Member of Technical Staff at VMware, Inc.
 
 **Yana Ivanova**  
-Member of Technical Staff at VMware, Inc.
+Senior Member of Technical Staff at VMware, Inc.
+
+**Zdravko Ivanov**
+Staff at VMware, Inc
+
+**Emil Petkov**
+Manager R&D at VMware, Inc
