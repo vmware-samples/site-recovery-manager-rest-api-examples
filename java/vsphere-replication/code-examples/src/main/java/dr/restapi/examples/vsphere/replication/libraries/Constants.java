@@ -10,15 +10,15 @@ public final class Constants {
     * Contain names of the properties in the configuration file {@link dr.restapi.examples.vsphere.replication.config.Config#CONFIG_FILE Config#CONFIG_FILE }.
     */
    public static final class Config {
+      public static final String REST_API_BASE_PATH = "rest-api-base-path";
       public static final String SSO_USERNAME = "sso-username";
       public static final String SSO_PASSWORD = "sso-password";
+      public static final String REMOTE_VC_NAME = "remote-vc-name";
       public static final String REMOTE_SSO_USERNAME = "remote-sso-username";
       public static final String REMOTE_SSO_PASSWORD = "remote-sso-password";
-      public static final String REST_API_BASE_PATH = "rest-api-base-path";
-      public static final String REMOTE_REST_API_BASE_PATH = "remote-rest-api-base-path";
-      public static final String LOCAL_VMS = "local-vms";
-      public static final String REMOTE_STORAGE_POLICY = "remote-storage-policy";
-      public static final String REMOTE_DATASTORE = "remote-datastore";
+      public static final String REPLICATION_VMS = "replication-vms";
+      public static final String REPLICATION_TARGET_STORAGE_POLICY = "replication-target-storage-policy";
+      public static final String REPLICATION_TARGET_DATASTORE = "replication-target-datastore";
       public static final String TASK_COMPLETION_RETRY_INTERVAL = "task-completion-retry-interval";
 
       private Config() {

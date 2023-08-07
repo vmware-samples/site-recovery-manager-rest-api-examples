@@ -6,7 +6,7 @@ import dr.restapi.examples.apiclient.ApiClient;
 import dr.restapi.examples.apiclient.ApiException;
 import dr.restapi.examples.apiclient.api.PairingApi;
 import dr.restapi.examples.apiclient.auth.HttpBasicAuth;
-import dr.restapi.examples.apiclient.model.Pairing;
+import dr.restapi.examples.apiclient.model.*;
 import dr.restapi.examples.vsphere.replication.exceptions.ExamplesExecutionException;
 
 import java.util.List;
@@ -41,6 +41,54 @@ public class PairingLibrary {
       }
 
       return pairings;
+   }
+
+   /**
+    * Get information about vSphere Replication servers that are paired.
+    * @param pairingId ID of the pairing between this vSphere Replication server and the remote one.
+    * @return list of vSphere Replication servers
+    * @throws ExamplesExecutionException when get a list of vSphere Replication servers failed
+    */
+   public List<VrmsInfo> callGetAllVrDetailsInPairing(String pairingId) {
+      List<VrmsInfo> vrmsInfos;
+      try {
+         vrmsInfos = this.pairingApi.getAllVrDetailsInPairing(pairingId)
+                                    .getList();
+
+         toSystemOut("Get a list of all paired vSphere Replication servers completed.");
+      } catch (ApiException ex) {
+         throw new ExamplesExecutionException(ex, "Request 'PairingApi.getAllVrDetailsInPairing' failed.");
+      }
+
+      return vrmsInfos;
+   }
+
+   /**
+    * Get a list of all registered replication servers for given vSphere Replication {@code vrId} in the specified {@code pairing}.
+    * @param pairingId ID of the pairing between this vSphere Replication server and the remote one.
+    * @param vrId Id of the VRMS
+    * @return list of vSphere Replication servers
+    * @throws ExamplesExecutionException when get a list of all registered replication servers failed
+    */
+   public List<ReplicationServerInfo> callGetAllVrDetailsInPairing(String pairingId, String vrId) {
+      List<ReplicationServerInfo> replicationServerInfos;
+      try {
+         replicationServerInfos = this.pairingApi.getAllVrServersInPairing(pairingId,
+                                                                           vrId,
+                                                                           null,
+                                                                           null,
+                                                                           null,
+                                                                           null,
+                                                                           null,
+                                                                           null)
+                                                 .getList();
+
+         toSystemOut("Get a list of all registered replication servers completed.");
+      } catch (ApiException ex) {
+         throw new ExamplesExecutionException(ex, "Request 'PairingApi.getAllVrServersInPairing' failed.");
+      }
+
+      return replicationServerInfos;
    }
 
    /**

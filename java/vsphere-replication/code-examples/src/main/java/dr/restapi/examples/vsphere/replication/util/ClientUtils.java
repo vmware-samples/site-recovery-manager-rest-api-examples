@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 /**
  * Client utility class.
- * <p>Feel free to redefine the implementations of all methods including those starting with <b>choose</b>.
  */
 public class ClientUtils {
    /**
@@ -35,15 +34,6 @@ public class ClientUtils {
    }
 
    /**
-    * Print the specified {@code message} with the related {@code messageParams} into the "standard" error stream.
-    * @param message message
-    * @param messageParams message parameters
-    */
-   public static void toSystemErr(String message, Object... messageParams) {
-      System.err.println(MessageFormat.format(message, messageParams));
-   }
-
-   /**
     * Create an API Client with URL base path {@link Constants.Config#REST_API_BASE_PATH}.
     * @return api client
     */
@@ -56,79 +46,69 @@ public class ClientUtils {
    }
 
    /**
-    * Create an API Client with URL base path {@link Constants.Config#REMOTE_REST_API_BASE_PATH}.
-    * @return api client
-    */
-   public static ApiClient createRemoteApiClient() {
-      ApiClient remoteApiClient = new ApiClient();
-      remoteApiClient.setVerifyingSsl(false);
-      remoteApiClient.setBasePath(Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_REST_API_BASE_PATH));
-
-      return remoteApiClient;
-   }
-
-   /**
-    * Client decision to choose one pairing with a remote VC.
-    * <p>Takes the first pairing with a remote VC.
+    * Return a pairing from the specified list {@code pairings}, which remote VC server matches {@link Constants.Config#REMOTE_VC_NAME}.
     * @param pairings list of pairings
     * @return pairing
-    * @throws EnvironmentPrerequisiteException when there is no pairing with a remote VC
+    * @throws EnvironmentPrerequisiteException when there is no such a pairing
     */
    public static Pairing choosePairing(List<Pairing> pairings) {
+      String remoteVcName = Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_VC_NAME);
+
       if (CollectionUtils.isEmpty(pairings)) {
-         throw new EnvironmentPrerequisiteException("No pairing with a remote VC is found.");
+         throw new EnvironmentPrerequisiteException("No pairing with a remote VC name [{0}] is found.",
+                                                    remoteVcName);
       }
 
       return pairings.stream()
-                     .filter(pairing -> !pairing.getLocalVcServer().getId().equals(pairing.getRemoteVcServer().getId()))
+                     .filter(pairing -> pairing.getRemoteVcServer().getName().equals(remoteVcName))
                      .findFirst()
-                     .orElseThrow(() -> new EnvironmentPrerequisiteException("No pairing with a remote VC is found."));
+                     .orElseThrow(() -> new EnvironmentPrerequisiteException(
+                           "No pairing with a remote VC name [{0}] is found.",
+                           remoteVcName));
    }
 
    /**
-    * Client decision to choose VMs to set replication.
-    * <p>Decision is made by the value of {@link Constants.Config#LOCAL_VMS}.
-    * @param localVms a list of VMs available at the local site
+    * Get a list of Vms, which names matches {@link Constants.Config#REPLICATION_VMS}.
+    * @param vms a list of available VMs
     * @return a list of VMs chosen to set replication
     */
-   public static List<VirtualMachine> chooseLocalVms(List<VirtualMachine> localVms) {
-      String[] configuredVmNames = Config.get().getPropertyNotEmpty(Constants.Config.LOCAL_VMS).split(",");
+   public static List<VirtualMachine> chooseReplicationVms(List<VirtualMachine> vms) {
+      String[] configuredVmNames = Config.get().getPropertyNotEmpty(Constants.Config.REPLICATION_VMS).split(",");
 
       return Arrays.stream(configuredVmNames)
-                   .map(configuredVmName -> localVms.stream()
-                                                    .filter(localVm -> localVm.getName().equals(configuredVmName))
-                                                    .findFirst()
-                                                    .orElseThrow(() -> new EnvironmentPrerequisiteException(
-                                                          "VM with name [{0}] does not exist on the local site.",
-                                                          configuredVmName))
+                   .map(configuredVmName -> vms.stream()
+                                               .filter(localVm -> localVm.getName().equals(configuredVmName))
+                                               .findFirst()
+                                               .orElseThrow(() -> new EnvironmentPrerequisiteException(
+                                                     "VM with name [{0}] does not exist on the local site.",
+                                                     configuredVmName))
                        )
                    .collect(Collectors.toList());
    }
 
    /**
-    * Client decision to choose one replication server from the list.
-    * <p>Takes the first replication server from the list.
-    * @param vrs list of replication servers
-    * @return replication server
+    * Get a vSphere Replication Management Server from the specified list {@code vrmsInfos}, which VC server matches {@link Constants.Config#REMOTE_VC_NAME}.
+    * @param vrmsInfos list of vSphere Replication Management Servers
+    * @return vSphere Replication Management Server
     */
-   public static ReplicationServerInfo chooseRemoteVR(List<ReplicationServerInfo> vrs) {
-      if (CollectionUtils.isEmpty(vrs)) {
-         new EnvironmentPrerequisiteException("No pairing with a remote site.");
-      }
+   public static VrmsInfo chooseVrms(List<VrmsInfo> vrmsInfos) {
+      String remoteVcName = Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_VC_NAME);
 
-      return vrs.get(0);
+      return vrmsInfos
+            .stream()
+            .filter(vrmsInfo -> vrmsInfo.getVcName().equals(remoteVcName))
+            .findFirst().get();
    }
 
    /**
-    * Client decision to choose one storage policy from the list.
-    * <p>Decision is made by the value of {@link Constants.Config#REMOTE_STORAGE_POLICY}.
-    * @param remoteStoragePolicies list of storage policies on the remote site
+    * Get a storage policy from the specified list {@code storagePolicies}, which name matches {@link Constants.Config#REPLICATION_TARGET_STORAGE_POLICY}.
+    * @param storagePolicies list of storage policies
     * @return storage policy
     */
-   public static StoragePolicy chooseRemoteStoragePolicy(List<StoragePolicy> remoteStoragePolicies) {
-      String configuredStoragePolicyName = Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_STORAGE_POLICY);
+   public static StoragePolicy chooseReplicationTargetStoragePolicy(List<StoragePolicy> storagePolicies) {
+      String configuredStoragePolicyName = Config.get().getPropertyNotEmpty(Constants.Config.REPLICATION_TARGET_STORAGE_POLICY);
 
-      return remoteStoragePolicies
+      return storagePolicies
             .stream()
             .filter(storagePolicy -> storagePolicy.getStoragePolicyName().equals(configuredStoragePolicyName))
             .findFirst()
@@ -138,15 +118,14 @@ public class ClientUtils {
    }
 
    /**
-    * Client decision to choose one datastore from the list.
-    * <p>Decision is made by the value of {@link Constants.Config#REMOTE_DATASTORE}.
-    * @param remoteVcDatastores list of remote VC datastores
+    * Get a datastore from the specified list {@code datastores}, which name matches {@link Constants.Config#REPLICATION_TARGET_DATASTORE}.
+    * @param datastores list of datastores
     * @return datastore
     */
-   public static Datastore chooseRemoteDatastore(List<Datastore> remoteVcDatastores) {
-      String configuredDatastoreName = Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_DATASTORE);
+   public static Datastore chooseReplicationTargetDatastore(List<Datastore> datastores) {
+      String configuredDatastoreName = Config.get().getPropertyNotEmpty(Constants.Config.REPLICATION_TARGET_DATASTORE);
 
-      return remoteVcDatastores
+      return datastores
             .stream()
             .filter(datastore -> datastore.getName().equals(configuredDatastoreName))
             .findFirst()

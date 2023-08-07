@@ -75,7 +75,8 @@ public class ReplicationLibrary {
                                                               null,
                                                               null);
 
-         toSystemOut("Get vSphere Replication capability information about a given VM completed.");
+         toSystemOut("Get vSphere Replication capability information about a given VM with Id [{0}] completed.",
+                     vmId);
       } catch (ApiException ex) {
          throw new ExamplesExecutionException(ex, "Request 'ReplicationApi.getVmCapability' failed.");
       }
@@ -112,7 +113,7 @@ public class ReplicationLibrary {
    }
 
    /**
-    * Get VC supported datastores.
+    * Get VR supported datastores.
     * @param pairingId pairing ID
     * @param vcenterId VC ID
     * @return list of datastores
@@ -131,7 +132,7 @@ public class ReplicationLibrary {
                                                                        null)
                                          .getList();
 
-         toSystemOut("Get VC supported datastores completed.");
+         toSystemOut("Get VR supported datastores completed.");
       } catch (ApiException ex) {
          throw new ExamplesExecutionException(ex, "Request 'ReplicationApi.getVrCapableTargetDatastores' failed.");
       }

@@ -16,9 +16,8 @@ import static dr.restapi.examples.vsphere.replication.util.ClientUtils.*;
 public class VRCodeExamples {
    public static void main(String[] args) {
       ApiClient apiClient = ClientUtils.createApiClient();
-      ApiClient remoteApiClient = ClientUtils.createRemoteApiClient();
 
-      VRCodeExamples codeExamples = new VRCodeExamples(apiClient, remoteApiClient);
+      VRCodeExamples codeExamples = new VRCodeExamples(apiClient);
       codeExamples.runAuthenticationScenario();
       codeExamples.runConfigureReplicationScenario();
    }
@@ -29,22 +28,12 @@ public class VRCodeExamples {
    private final ReplicationLibrary replicationLibrary;
    private final TasksLibrary tasksLibrary;
 
-   private final ApiClient remoteApiClient;
-   private final AuthenticationLibrary remoteAuthenticationLibrary;
-   private final ReplicationLibrary remoteReplicationLibrary;
-   private final ServerLibrary remoteServerLibrary;
-
-   private VRCodeExamples(ApiClient apiClient, ApiClient remoteApiClient) {
+   private VRCodeExamples(ApiClient apiClient) {
       this.apiClient = apiClient;
       this.authenticationLibrary = new AuthenticationLibrary(apiClient);
       this.pairingLibrary = new PairingLibrary(apiClient);
       this.replicationLibrary = new ReplicationLibrary(apiClient);
       this.tasksLibrary = new TasksLibrary(apiClient);
-
-      this.remoteApiClient = remoteApiClient;
-      this.remoteAuthenticationLibrary = new AuthenticationLibrary(remoteApiClient);
-      this.remoteReplicationLibrary = new ReplicationLibrary(remoteApiClient);
-      this.remoteServerLibrary = new ServerLibrary(remoteApiClient);
    }
 
    /**
@@ -74,7 +63,7 @@ public class VRCodeExamples {
     * Prerequisites:
     * <ul>
     *    <li>Existing site pair with a remote VC.</li>
-    *    <li>Existing VMs at the local site. Their names are listed in configuration property {@link Constants.Config#LOCAL_VMS}.</li>
+    *    <li>Existing VMs at the local site. Their names are listed in configuration property {@link Constants.Config#REPLICATION_VMS}.</li>
     * </ul>
     * <p>Steps:
     * <ol>
@@ -96,18 +85,11 @@ public class VRCodeExamples {
       toSystemOut("=== Run Configure Replication Scenario...");
 
       SessionIdData sessionIdData = null;
-      SessionIdData remoteSessionIdData = null;
       try {
          sessionIdData =
                this.authenticationLibrary.callLogin(Config.get().getPropertyNotEmpty(Constants.Config.SSO_USERNAME),
                                                     Config.get().getPropertyNotEmpty(Constants.Config.SSO_PASSWORD));
          this.apiClient.addDefaultHeader(Constants.SESSION_HEADER, sessionIdData.getSessionId());
-
-         remoteSessionIdData =
-               this.remoteAuthenticationLibrary.callLogin(
-                     Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_SSO_USERNAME),
-                     Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_SSO_PASSWORD));
-         this.remoteApiClient.addDefaultHeader(Constants.SESSION_HEADER, remoteSessionIdData.getSessionId());
 
          List<Pairing> pairings = this.pairingLibrary.callGetAllPairings();
          Pairing pairing = ClientUtils.choosePairing(pairings);
@@ -118,28 +100,31 @@ public class VRCodeExamples {
                                              Config.get().getPropertyNotEmpty(Constants.Config.REMOTE_SSO_PASSWORD));
 
          boolean suitableForReplication = true;
-         List<VirtualMachine> localVms =
+         List<VirtualMachine> vms =
                this.replicationLibrary.callGetLocalVms(pairingId, pairing.getLocalVcServer().getId(), suitableForReplication);
-         List<VirtualMachine> localVmsToReplicate = chooseLocalVms(localVms);
+         List<VirtualMachine> vmsToReplication = chooseReplicationVms(vms);
 
-         List<ReplicationServerInfo> remoteVRServers = this.remoteServerLibrary.callGetAllVrServers();
-         ReplicationServerInfo remoteVRServer = ClientUtils.chooseRemoteVR(remoteVRServers);
+         List<VrmsInfo> vrmsInfos = this.pairingLibrary.callGetAllVrDetailsInPairing(pairingId);
+         VrmsInfo vrmsInfo = ClientUtils.chooseVrms(vrmsInfos);
+         List<ReplicationServerInfo> replicationServerInfos =
+               this.pairingLibrary.callGetAllVrDetailsInPairing(pairingId, vrmsInfo.getId().toString());
+         ReplicationServerInfo targetVrServer = replicationServerInfos.get(0);
 
-         List<StoragePolicy> remoteVcStoragePolicies =
-               this.remoteReplicationLibrary.callGetVcStoragePolicies(pairingId, pairing.getRemoteVcServer().getId());
-         StoragePolicy remoteVcStoragePolicy = ClientUtils.chooseRemoteStoragePolicy(remoteVcStoragePolicies);
+         List<StoragePolicy> vcStoragePolicies =
+               this.replicationLibrary.callGetVcStoragePolicies(pairingId, pairing.getRemoteVcServer().getId());
+         StoragePolicy targetVcStoragePolicy = ClientUtils.chooseReplicationTargetStoragePolicy(vcStoragePolicies);
 
-         List<Datastore> remoteVcDatastores =
-               this.remoteReplicationLibrary.callGetVrCapableTargetDatastores(pairingId,
-                                                                              pairing.getRemoteVcServer().getId());
-         Datastore remoteVcDatastore = ClientUtils.chooseRemoteDatastore(remoteVcDatastores);
+         List<Datastore> datastores =
+               this.replicationLibrary.callGetVrCapableTargetDatastores(pairingId,
+                                                                        pairing.getRemoteVcServer().getId());
+         Datastore targetVcDatastore = ClientUtils.chooseReplicationTargetDatastore(datastores);
 
          List<ConfigureReplicationSpec> specs =
                createVmsReplicationSpecs(pairing,
-                                         localVmsToReplicate,
-                                         remoteVcDatastore,
-                                         remoteVcStoragePolicy,
-                                         remoteVRServer);
+                                         vmsToReplication,
+                                         targetVcDatastore,
+                                         targetVcStoragePolicy,
+                                         targetVrServer);
 
          List<Task> replicationTasks = this.replicationLibrary.callConfigureReplication(pairingId, specs);
 
@@ -151,28 +136,27 @@ public class VRCodeExamples {
             this.authenticationLibrary.callLogout();
          }
 
-         if (remoteSessionIdData != null) {
-            this.remoteAuthenticationLibrary.callLogout();
-         }
-
          toSystemOutEmptyLine();
       }
    }
 
    private List<ConfigureReplicationSpec> createVmsReplicationSpecs(Pairing pairing,
-                                                                    List<VirtualMachine> localVmsToReplicate,
-                                                                    Datastore remoteVcDatastore,
-                                                                    StoragePolicy remoteVcStoragePolicy,
-                                                                    ReplicationServerInfo remoteVRServer) {
+                                                                    List<VirtualMachine> vmsToReplication,
+                                                                    Datastore targetDatastore,
+                                                                    StoragePolicy targetStoragePolicy,
+                                                                    ReplicationServerInfo targetVRServer) {
       List<ConfigureReplicationSpec> replicationSpecs = new ArrayList<>();
 
       String pairingId = pairing.getPairingId().toString();
 
-      for (VirtualMachine vmToReplicate : localVmsToReplicate) {
+      for (VirtualMachine vmToReplication : vmsToReplication) {
+         // VM capabilities can be used to verify if a VM supports a given setting,
+         // but it's not always correct to use those as default values.
+         // There are different considerations for each of those.
          VmCapabilitiesDrResponseEntity vmCapabilities =
                this.replicationLibrary.callGetVmCapability(pairingId,
                                                            pairing.getLocalVcServer().getId(),
-                                                           vmToReplicate.getId());
+                                                           vmToReplication.getId());
 
          ConfigureReplicationSpec spec = new ConfigureReplicationSpec();
          spec.setAutoReplicateNewDisks(vmCapabilities.isAutoReplicateNewDisksSupported());
@@ -184,12 +168,12 @@ public class VRCodeExamples {
          spec.networkCompressionEnabled(vmCapabilities.isNetworkCompressionSupported());
          spec.setQuiesceEnabled(vmCapabilities.isQuiescingSupported());
          spec.setVmDataSetsReplicationEnabled(false);
-         spec.setTargetReplicationServerId(remoteVRServer.getId());
-         spec.setVmId(vmToReplicate.getId());
+         spec.setTargetReplicationServerId(targetVRServer.getId());
+         spec.setVmId(vmToReplication.getId());
          spec.setTargetVcId(pairing.getRemoteVcServer().getId().toString());
 
          List<ConfigureReplicationVmDisk> diskSpecs =
-               createVmDiskSpecs(vmToReplicate, remoteVcDatastore, remoteVcStoragePolicy);
+               createVmDiskSpecs(vmToReplication, targetDatastore, targetStoragePolicy);
          spec.setDisks(diskSpecs);
 
          replicationSpecs.add(spec);
@@ -199,19 +183,19 @@ public class VRCodeExamples {
    }
 
    private List<ConfigureReplicationVmDisk> createVmDiskSpecs(VirtualMachine vm,
-                                                              Datastore remoteVcDatastore,
-                                                              StoragePolicy remoteVcStoragePolicy) {
+                                                              Datastore targetDatastore,
+                                                              StoragePolicy targetStoragePolicy) {
 
       List<ConfigureReplicationVmDisk> diskSpecs = new ArrayList<>();
 
       for (VmDisk vmDisk : vm.getDisks()) {
          ConfigureReplicationVmDisk diskSpec = new ConfigureReplicationVmDisk();
-         diskSpec.setDestinationDatastoreId(remoteVcDatastore.getId());
+         diskSpec.setDestinationDatastoreId(targetDatastore.getId());
          diskSpec.setDestinationDiskFormat(DestinationDiskFormatEnum.SAME_AS_SOURCE);
          diskSpec.setEnabledForReplication(true);
          diskSpec.setUseSeeds(false);
          diskSpec.destinationPath(null);
-         diskSpec.setDestinationStoragePolicyId(remoteVcStoragePolicy.getStoragePolicyId());
+         diskSpec.setDestinationStoragePolicyId(targetStoragePolicy.getStoragePolicyId());
          diskSpec.setVmDisk(vmDisk);
 
          diskSpecs.add(diskSpec);
