@@ -104,11 +104,11 @@ public class VRCodeExamples {
                this.replicationLibrary.callGetLocalVms(pairingId, pairing.getLocalVcServer().getId(), suitableForReplication);
          List<VirtualMachine> vmsToReplication = chooseReplicationVms(vms);
 
-         List<VrmsInfo> vrmsInfos = this.pairingLibrary.callGetAllVrDetailsInPairing(pairingId);
+         List<VrmsInfo> vrmsInfos = this.pairingLibrary.callGetAllVrmsDetails(pairingId);
          VrmsInfo vrmsInfo = ClientUtils.chooseVrms(vrmsInfos);
-         List<ReplicationServerInfo> replicationServerInfos =
-               this.pairingLibrary.callGetAllVrDetailsInPairing(pairingId, vrmsInfo.getId().toString());
-         ReplicationServerInfo targetVrServer = replicationServerInfos.get(0);
+         List<ReplicationServerInfo> vrsInfos =
+               this.pairingLibrary.callGetAllVrsDetails(pairingId, vrmsInfo.getId().toString());
+         ReplicationServerInfo targetVrs = vrsInfos.get(0);
 
          List<StoragePolicy> vcStoragePolicies =
                this.replicationLibrary.callGetVcStoragePolicies(pairingId, pairing.getRemoteVcServer().getId());
@@ -124,7 +124,7 @@ public class VRCodeExamples {
                                          vmsToReplication,
                                          targetVcDatastore,
                                          targetVcStoragePolicy,
-                                         targetVrServer);
+                                         targetVrs);
 
          List<Task> replicationTasks = this.replicationLibrary.callConfigureReplication(pairingId, specs);
 

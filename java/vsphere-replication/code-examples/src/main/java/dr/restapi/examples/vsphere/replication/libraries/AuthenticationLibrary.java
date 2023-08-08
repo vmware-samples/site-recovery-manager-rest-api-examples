@@ -28,7 +28,7 @@ public class AuthenticationLibrary {
     * returned session ID value.
     * @param username username
     * @param password password
-    * @return session id data
+    * @return session ID data
     * @throws ExamplesExecutionException when login failed
     */
    public SessionIdData callLogin(String username, String password) {
@@ -41,7 +41,7 @@ public class AuthenticationLibrary {
       try {
          sessionIdData = this.authenticationApi.login();
 
-         toSystemOut("New session with Id [{0}] is created.", sessionIdData.getSessionId());
+         toSystemOut("New session with ID [{0}] is created.", sessionIdData.getSessionId());
       } catch (ApiException ex) {
          throw new ExamplesExecutionException(ex, "Request 'AuthenticationApi.login' failed.");
       }

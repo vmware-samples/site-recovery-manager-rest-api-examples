@@ -44,18 +44,18 @@ public class PairingLibrary {
    }
 
    /**
-    * Get information about vSphere Replication servers that are paired.
-    * @param pairingId ID of the pairing between this vSphere Replication server and the remote one.
-    * @return list of vSphere Replication servers
-    * @throws ExamplesExecutionException when get a list of vSphere Replication servers failed
+    * Get information about the vSphere Replication Management Servers (VRMS) that are paired.
+    * @param pairingId ID of the pairing between this vSphere Replication Management Server and the remote one
+    * @return list of vSphere Replication Management Servers
+    * @throws ExamplesExecutionException when get a list of vSphere Replication Management Servers failed
     */
-   public List<VrmsInfo> callGetAllVrDetailsInPairing(String pairingId) {
+   public List<VrmsInfo> callGetAllVrmsDetails(String pairingId) {
       List<VrmsInfo> vrmsInfos;
       try {
          vrmsInfos = this.pairingApi.getAllVrDetailsInPairing(pairingId)
                                     .getList();
 
-         toSystemOut("Get a list of all paired vSphere Replication servers completed.");
+         toSystemOut("Get a list of all paired vSphere Replication Management Servers completed.");
       } catch (ApiException ex) {
          throw new ExamplesExecutionException(ex, "Request 'PairingApi.getAllVrDetailsInPairing' failed.");
       }
@@ -64,17 +64,18 @@ public class PairingLibrary {
    }
 
    /**
-    * Get a list of all registered replication servers for given vSphere Replication {@code vrId} in the specified {@code pairing}.
-    * @param pairingId ID of the pairing between this vSphere Replication server and the remote one.
-    * @param vrId Id of the VRMS
-    * @return list of vSphere Replication servers
-    * @throws ExamplesExecutionException when get a list of all registered replication servers failed
+    * Get a list of all registered vSphere Replication Servers (VRS)
+    * for given vSphere Replication Management Server (VRMS) with ID {@code vrmsId} in the specified {@code pairing}.
+    * @param pairingId ID of the pairing between this vSphere Replication Management Server and the remote one
+    * @param vrmsId ID of the VRMS
+    * @return list of vSphere Replication Servers
+    * @throws ExamplesExecutionException when get a list of all registered vSphere Replication Servers failed
     */
-   public List<ReplicationServerInfo> callGetAllVrDetailsInPairing(String pairingId, String vrId) {
+   public List<ReplicationServerInfo> callGetAllVrsDetails(String pairingId, String vrmsId) {
       List<ReplicationServerInfo> replicationServerInfos;
       try {
          replicationServerInfos = this.pairingApi.getAllVrServersInPairing(pairingId,
-                                                                           vrId,
+                                                                           vrmsId,
                                                                            null,
                                                                            null,
                                                                            null,
@@ -83,7 +84,7 @@ public class PairingLibrary {
                                                                            null)
                                                  .getList();
 
-         toSystemOut("Get a list of all registered replication servers completed.");
+         toSystemOut("Get a list of all registered vSphere Replication Servers completed.");
       } catch (ApiException ex) {
          throw new ExamplesExecutionException(ex, "Request 'PairingApi.getAllVrServersInPairing' failed.");
       }
@@ -92,8 +93,8 @@ public class PairingLibrary {
    }
 
    /**
-    * Create a remote session to the remote vSphere Replication Management server.
-    * @param pairingId ID of the pairing between this vSphere Replication server and the remote one
+    * Create a remote session to the remote vSphere Replication Management Server (VRMS).
+    * @param pairingId ID of the pairing between this vSphere Replication Management Server and the remote one
     * @throws ExamplesExecutionException when remote login failed
     */
    public void callRemoteLogin(String pairingId, String username, String password) {

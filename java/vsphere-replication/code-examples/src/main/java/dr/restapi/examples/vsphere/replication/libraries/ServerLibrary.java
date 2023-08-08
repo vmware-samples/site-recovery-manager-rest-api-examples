@@ -24,9 +24,9 @@ public class ServerLibrary {
    }
 
    /**
-    * Get all registered replication servers.
-    * @return all registered replication servers
-    * @throws ExamplesExecutionException when get all registered replication servers failed
+    * Get all registered vSphere Replication Servers (VRS).
+    * @return all registered vSphere Replication Servers
+    * @throws ExamplesExecutionException when get all registered vSphere Replication Servers failed
     */
    public List<ReplicationServerInfo> callGetAllVrServers() {
       List<ReplicationServerInfo> vrs;
@@ -34,7 +34,7 @@ public class ServerLibrary {
          vrs = this.serverApi.getAllVrServers(null, null, null, null, null, null)
                              .getList();
 
-         toSystemOut("Get all registered replication servers completed.");
+         toSystemOut("Get all registered vSphere Replication Servers completed.");
       } catch (ApiException ex) {
          throw new ExamplesExecutionException(ex, "Request 'ServerApi.getAllVrServers' failed.");
       }

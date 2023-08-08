@@ -29,7 +29,7 @@ public class ReplicationLibrary {
     * @param pairingId pairing ID
     * @param vcenterId VC ID
     * @param suitableForReplication whether VM is suitable for a replication
-    * @return session id data
+    * @return session ID data
     * @throws ExamplesExecutionException when get VMs of a VC failed
     */
    public List<VirtualMachine> callGetLocalVms(String pairingId, UUID vcenterId, boolean suitableForReplication) {
