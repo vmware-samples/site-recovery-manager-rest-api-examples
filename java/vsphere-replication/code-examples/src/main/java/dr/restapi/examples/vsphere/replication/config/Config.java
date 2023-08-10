@@ -13,12 +13,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Configuration for the code example scenarios.
- * <p>Configuration is permanently stored in the project resource file {@code dr-rest-api-examples.properties}.
+ * <p>Configuration is stored in the project resource file {@code dr-rest-api-examples.properties}.
  * <p>Configuration can be dynamically extended at runtime by {@linkplain Config#cacheConfig(String, String)}.
  */
 public final class Config {
+   public static final String CONFIG_FILE = "dr-rest-api-examples.properties";
+
    private static final Config CONFIG = new Config();
-   private static final String CONFIG_FILE = "dr-rest-api-examples.properties";
    private static final AtomicBoolean TO_LOAD_CONFIG = new AtomicBoolean(true);
 
    private final Properties props;
@@ -28,8 +29,8 @@ public final class Config {
    }
 
    /**
-    * Get an instance of this class with loaded configuration.
-    * @return singleton instance
+    * Get the singleton instance with loaded configuration.
+    * @return configuration
     */
    public static Config get() {
       if (TO_LOAD_CONFIG.compareAndSet(true, false)) {
@@ -62,14 +63,14 @@ public final class Config {
       } catch (IOException ex) {
          throw new ConfigNotInitializedException(
                ex,
-               "Configuration initialization failed. An error occurred when reading from the input stream.");
+               "Configuration initialization failed due to an error when reading from the input stream.");
       }
    }
 
    /**
     * Get configuration value which is mapped to the specified property name {@code propName}.
     * @param propName property name to obtain its property value
-    * @return string
+    * @return configuration string value
     * @throws ConfigNotValidException when such property is not defined or property value is not valid
     */
    public String getPropertyNotEmpty(String propName) {
@@ -91,7 +92,7 @@ public final class Config {
     * @throws ConfigNotValidException when such property is not defined or property value is not valid
     */
    public boolean getBoolean(String propName) {
-      String propValue = props.getProperty(propName);
+      String propValue = getPropertyNotEmpty(propName);
 
       if ("true".equalsIgnoreCase(propValue)) {
          return true;
@@ -117,7 +118,7 @@ public final class Config {
       String propertyValue = null;
 
       try {
-         propertyValue = props.getProperty(propName);
+         propertyValue = getPropertyNotEmpty(propName);
 
          return Integer.parseInt(propertyValue);
       } catch (NumberFormatException ex) {
@@ -175,7 +176,7 @@ public final class Config {
    public long getLong(String propName) {
       String propertyValue = null;
       try {
-         propertyValue = props.getProperty(propName);
+         propertyValue = getPropertyNotEmpty(propName);
 
          return Long.parseLong(propertyValue);
       } catch (NumberFormatException ex) {
