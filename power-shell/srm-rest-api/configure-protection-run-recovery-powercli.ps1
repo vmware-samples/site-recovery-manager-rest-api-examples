@@ -8,12 +8,12 @@
 #Set-PowerCLIConfiguration -InvalidCertificateAction Ignore
 
 # 2. Set env variabes
-$srmLocalHostName = "s3-srm3-235-151.eng.vmware.com"
+$srmLocalHostName = "local-srm.vmware.com"
 $localVcUsername = "administrator@vsphere.local"
-$localVcPassword = "vmware"
+$localVcPassword = "pass"
 
 $remoteVcUsername = "administrator@vsphere.local"
-$remoteVcPassword = "vmware"
+$remoteVcPassword = "pass"
 
 $pgName = "VMware Explorer Test PG"
 $rpName = "VMware Explorer Test RP"
