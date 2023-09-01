@@ -1,2 +1,2 @@
 ## 1. Folder Contents
-This folder is empty for now.
+PowerShell and PowerCLI scripts with example SRM-related workflows.
